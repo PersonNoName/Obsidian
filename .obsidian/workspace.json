@@ -11,10 +11,14 @@
             "id": "f84fde36e045f823",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Java/Springboot/未命名.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "未命名"
             }
           }
         ]
@@ -150,12 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Java/Springboot/未命名.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "未命名 的大纲"
             }
           },
           {
@@ -187,8 +192,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ec1484edbe7b384e",
+  "active": "f84fde36e045f823",
   "lastOpenFiles": [
+    "未命名.md",
+    "Java/Springboot/未命名.md",
     "Java/Springboot",
     "未命名",
     "Unity",
