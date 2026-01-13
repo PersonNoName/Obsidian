@@ -1,0 +1,17 @@
+{
+  "frames": [
+    {
+      "url": "https://gemini.google.com/app",
+      "displayName": "Gemini",
+      "icon": "brain",
+      "hideOnMobile": true,
+      "addRibbonIcon": false,
+      "openInCenter": false,
+      "zoomLevel": 1,
+      "forceIframe": false,
+      "customCss": "",
+      "customJs": ""
+    }
+  ],
+  "padding": 5
+}
