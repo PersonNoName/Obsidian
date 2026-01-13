@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Springboot/SpringBoot Introduction.md",
+                "file": "React/React MOC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SpringBoot Introduction"
+              "title": "React MOC"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Java/Springboot/SpringBoot Introduction.md",
+                "file": "React/React MOC.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -110,11 +110,11 @@
                   "linkStrength": 1,
                   "linkDistance": 250,
                   "scale": 0.4505081176757796,
-                  "close": true
+                  "close": false
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "SpringBoot Introduction 的关系图"
+              "title": "React MOC 的关系图"
             }
           }
         ]
@@ -223,17 +223,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java/Springboot/SpringBoot Introduction.md",
+                "file": "React/React MOC.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "SpringBoot Introduction 的大纲"
+              "title": "React MOC 的大纲"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       },
       {
         "id": "e0b4f7ab02d7d180",
@@ -245,8 +245,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "icon": "lucide-ghost",
+              "title": "calendar"
             }
           }
         ]
@@ -257,27 +257,27 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false,
       "obsidian-git:Open Git source control": false,
       "workspaces:管理工作区布局": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
       "templater-obsidian:Templater": false
     }
   },
-  "active": "effa716c022fff4e",
+  "active": "54e1ec48b74125e1",
   "lastOpenFiles": [
+    "Java/Springboot/SpringBoot Introduction.md",
     "tmpclaude-2e9c-cwd",
     "tmpclaude-c9b2-cwd",
     "tmpclaude-34be-cwd",
     "tmpclaude-0508-cwd",
     "Java/Java MOC.md",
-    "Java/Springboot/SpringBoot Introduction.md",
     "React/React MOC.md",
     "Unity/Unity MOC.md",
     "Unity/Unity 5 简介.md",
@@ -293,7 +293,6 @@
     "SKILL.md",
     "SpringBoot Introduction.md",
     "Spring Boot 简介.md",
-    "Java/Springboot/未命名.md",
-    "Java/Projects/FreeTrader"
+    "Java/Springboot/未命名.md"
   ]
 }
