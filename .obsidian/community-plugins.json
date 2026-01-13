@@ -1,4 +1,8 @@
 [
   "obsidian-git",
-  "obsidian-custom-frames"
+  "obsidian-custom-frames",
+  "calendar",
+  "obsidian-excalidraw-plugin",
+  "obsidian-style-settings",
+  "templater-obsidian"
 ]
