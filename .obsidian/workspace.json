@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "React/React MOC.md",
-                "mode": "source",
-                "source": false
+                "file": "Unity/Unity MOC.md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "React MOC"
+              "title": "Unity MOC"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "React/React MOC.md",
+                "file": "Unity/Unity MOC.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "React MOC 的关系图"
+              "title": "Unity MOC 的关系图"
             }
           }
         ]
@@ -223,13 +223,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/React MOC.md",
+                "file": "Unity/Unity MOC.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "React MOC 的大纲"
+              "title": "Unity MOC 的大纲"
             }
           }
         ],
@@ -270,24 +270,25 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "effa716c022fff4e",
+  "active": "fd070028b7bf8442",
   "lastOpenFiles": [
+    "新建文件夹",
+    "skills",
+    "Unity/Unity 5 简介.md",
+    "Unity/Unity MOC.md",
     "Java/Springboot/SpringBoot Introduction.md",
+    "React/React MOC.md",
     "tmpclaude-2e9c-cwd",
     "tmpclaude-c9b2-cwd",
     "tmpclaude-34be-cwd",
     "tmpclaude-0508-cwd",
     "Java/Java MOC.md",
-    "React/React MOC.md",
-    "Unity/Unity MOC.md",
-    "Unity/Unity 5 简介.md",
     "Unity Rendering Pipeline.md",
     "tmpclaude-c568-cwd",
     "tmpclaude-8e3b-cwd",
     "tmpclaude-858a-cwd",
     "tmpclaude-8e7a-cwd",
     "tmpclaude-3eb4-cwd",
-    "新建 文本文档.txt",
     "2026-01-12.md",
     "README.md",
     "SKILL.md",
