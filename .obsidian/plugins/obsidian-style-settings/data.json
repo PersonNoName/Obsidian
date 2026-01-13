@@ -1,3 +1,5 @@
 {
-  "Appearance-light@@card-layout-open-light": true
+  "Appearance-light@@card-layout-open-light": true,
+  "Plugin@@Projects-bg-color": "Projects-bg-color-default",
+  "Plugin@@colorful-checkbox": false
 }

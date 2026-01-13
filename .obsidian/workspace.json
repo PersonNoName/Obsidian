@@ -93,9 +93,9 @@
                   "localJumps": 1,
                   "localBacklinks": true,
                   "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
+                  "localInterlinks": true,
+                  "showTags": true,
+                  "showAttachments": true,
                   "hideUnresolved": false,
                   "collapse-color-groups": true,
                   "colorGroups": [],
@@ -109,8 +109,8 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 0.4505081176757796,
-                  "close": false
+                  "scale": 0.4505081176757795,
+                  "close": true
                 }
               },
               "icon": "lucide-git-fork",
@@ -245,8 +245,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "calendar"
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
         ]
@@ -270,7 +270,7 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "54e1ec48b74125e1",
+  "active": "effa716c022fff4e",
   "lastOpenFiles": [
     "Java/Springboot/SpringBoot Introduction.md",
     "tmpclaude-2e9c-cwd",
