@@ -86,7 +86,6 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "python-notes/Python3基础笔记.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -114,7 +113,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Python3基础笔记 的关系图"
+              "title": "关系图谱"
             }
           }
         ]
@@ -223,13 +222,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "python-notes/Python3基础笔记.md",
+                "file": "Unity Rendering Pipeline.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Python3基础笔记 的大纲"
+              "title": "Unity Rendering Pipeline 的大纲"
             }
           }
         ],
@@ -270,13 +269,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "fd070028b7bf8442",
+  "active": "6cdfd2f51055e2fa",
   "lastOpenFiles": [
-    "React/React MOC.md",
-    "Unity/Unity 5 简介.md",
-    "Unity/Unity MOC.md",
     "2026-01-12.md",
+    "Unity/Unity 5 简介.md",
     "python-notes/Python3基础笔记.md",
+    "React/React MOC.md",
+    "Unity/Unity MOC.md",
     "python-notes",
     "Unity Rendering Pipeline.md",
     "tmpclaude-e566-cwd",
