@@ -1,0 +1,8 @@
+- [[刚体 (Rigidbody) 与重力模拟]]
+- [[IsKinematic 属性与代码控制权]]
+- [[碰撞体 (Collider) 与实体碰撞检测]]
+- [[触发器 (Trigger) 与区域事件检测]]
+- [[OnCollisionEnter 与 OnTriggerEnter 的调用区分]]
+- [[物理材质 (Physics Material) 的摩擦力与弹力设置]]
+- [[层级碰撞矩阵 (Layer Collision Matrix) 与性能优化]]
+- [[2D 物理与 3D 物理系统的独立性]]

@@ -1,0 +1,5 @@
+- [[XR Interaction Toolkit (XRI) 框架]]
+- [[XR Origin 与空间追踪配置]]
+- [[Locomotion System (瞬移 平滑移动)]]
+- [[Interactors 交互逻辑 (射线抓取 直接接触)]]
+- [[XR Plugin Management 与 OpenXR 后端]]
