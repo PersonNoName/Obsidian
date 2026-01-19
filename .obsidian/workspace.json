@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Unity/目录.md",
+                "file": "Projects/FreeTrader/backend/12-API接口文档.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "目录"
+              "title": "12-API接口文档"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Unity/目录.md",
+                "file": "Projects/FreeTrader/backend/12-API接口文档.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "目录 的关系图"
+              "title": "12-API接口文档 的关系图"
             }
           }
         ]
@@ -207,14 +207,10 @@
             "id": "b61a4e50e08f255f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2026-01-12.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "2026-01-12"
+              "title": "新标签页"
             }
           },
           {
@@ -270,37 +266,37 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "effa716c022fff4e",
+  "active": "54e1ec48b74125e1",
   "lastOpenFiles": [
-    "Unity/07-实战流程与资源库/项目实战规范/标准目录结构 (Scripts Art Prefabs).md",
+    "Projects/FreeTrader/backend/Authentication_API.md",
+    "Projects/FreeTrader/backend/Backend_Overview.md",
+    "Projects/FreeTrader/backend/Coding_Standards.md",
+    "Projects/FreeTrader/backend/12-API接口文档.md",
+    "Projects/FreeTrader/backend/后端架构.md",
+    "Projects/FreeTrader/backend/11-配置类.md",
+    "Projects/FreeTrader/backend/10-统一响应封装.md",
+    "Projects/FreeTrader/backend/09-JWT实现.md",
+    "Projects/FreeTrader/backend/08-安全认证.md",
+    "Projects/FreeTrader/backend/05-Mapper层实现.md",
+    "Projects/FreeTrader/backend/04-实体层实现.md",
+    "Projects/FreeTrader/backend/03-数据库设计.md",
+    "Projects/FreeTrader/backend/02-项目架构.md",
+    "Projects/FreeTrader/backend/01-技术栈.md",
+    "Projects/FreeTrader/backend/00-项目概述.md",
+    "Projects/FreeTrader/backend/07-Controller层实现.md",
+    "Projects/FreeTrader/backend/06-Service层实现.md",
+    "Projects/FreeTrader/backend/Configuration_Details.md",
+    "Projects/FreeTrader/backend/Data_Persistence.md",
     "Unity/目录.md",
+    "Projects/FreeTrader/backend/Security_Architecture.md",
+    "Projects/FreeTrader/backend/Project_Dependencies.md",
+    "Unity/07-实战流程与资源库/项目实战规范/标准目录结构 (Scripts Art Prefabs).md",
     "Unity/reference.md",
     "Unity/01-环境搭建与核心特性/标准化开发环境构建/标准化开发环境构建 MOC.md",
     "Unity/01-环境搭建与核心特性/标准化开发环境构建/目标平台 Build Support 的选择 (Android iOS WebGL).md",
     "Unity/tmpclaude-638c-cwd",
-    "Unity/05-多领域专项技术/2D 游戏开发专项/2D 游戏开发专项 MOC.md",
     "Unity/tmpclaude-f1a1-cwd",
     "Unity/tmpclaude-fae8-cwd",
-    "Unity/07-实战流程与资源库/精选权威学习资源/优质开源项目 (San Andreas Unity).md",
-    "Unity/07-实战流程与资源库/精选权威学习资源/经典书籍 (Unity in Action 3rd Ed).md",
-    "Unity/07-实战流程与资源库/精选权威学习资源/官方示例项目 (Boss Room Gem Hunter).md",
-    "Unity/07-实战流程与资源库/精选权威学习资源/官方手册与 API 文档.md",
-    "Unity/07-实战流程与资源库/精选权威学习资源/Unity Learn 官方互动课程.md",
-    "Unity/07-实战流程与资源库/团队协作技巧/基于 Prefab 的协作修改模式.md",
-    "Unity/07-实战流程与资源库/团队协作技巧/Multi-Scene Editing (多场景编辑) 工作流.md",
-    "Unity/07-实战流程与资源库/团队协作技巧/场景冲突 (Scene Conflict) 避免策略.md",
-    "Unity/07-实战流程与资源库/项目实战规范/发布配置 (Keystore Xcode).md",
-    "Unity/07-实战流程与资源库/项目实战规范/目标设备真机测试流程.md",
-    "Unity/07-实战流程与资源库/项目实战规范/版本控制提交规范.md",
-    "Unity/07-实战流程与资源库/项目实战规范/核心系统数据流向设计.md",
-    "Unity/07-实战流程与资源库/项目实战规范/白模原型 (Prototyping) 验证阶段.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/脚本不执行的常见原因检查.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/物理穿透 (穿模) 原因与连续碰撞检测.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/NullReferenceException (空引用) 排查.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/Visual Studio 断点 (Breakpoints) 与监视窗口.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/Debug.DrawRay 可视化调试技巧.md",
-    "Unity/06-工程化与性能优化/调试与问题排查/Frame Debugger 渲染过程分析.md",
-    "Unity/06-工程化与性能优化/性能分析与调优/静态合批 (Static Batching) 与 GPU Instancing.md",
     "Unity/tmpclaude-afa8-cwd",
     "Unity/tmpclaude-20d3-cwd",
     "Unity/tmpclaude-ec19-cwd",
