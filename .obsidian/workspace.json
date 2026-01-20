@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/FreeTrader/backend/12-API接口文档.md",
-                "mode": "preview",
-                "source": true
+                "file": "Projects/FreeTrader/backend/API 接口文档/板块接口.md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "12-API接口文档"
+              "title": "板块接口"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Projects/FreeTrader/backend/12-API接口文档.md",
+                "file": "Projects/FreeTrader/backend/API 接口文档/板块接口.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "12-API接口文档 的关系图"
+              "title": "板块接口 的关系图"
             }
           }
         ]
@@ -266,8 +266,10 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "54e1ec48b74125e1",
+  "active": "fd070028b7bf8442",
   "lastOpenFiles": [
+    "Projects/FreeTrader/backend/快速开始.md",
+    "Projects/FreeTrader/backend/测试与部署.md",
     "Projects/FreeTrader/backend/Authentication_API.md",
     "Projects/FreeTrader/backend/Backend_Overview.md",
     "Projects/FreeTrader/backend/Coding_Standards.md",
@@ -292,8 +294,6 @@
     "Projects/FreeTrader/backend/Project_Dependencies.md",
     "Unity/07-实战流程与资源库/项目实战规范/标准目录结构 (Scripts Art Prefabs).md",
     "Unity/reference.md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/标准化开发环境构建 MOC.md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/目标平台 Build Support 的选择 (Android iOS WebGL).md",
     "Unity/tmpclaude-638c-cwd",
     "Unity/tmpclaude-f1a1-cwd",
     "Unity/tmpclaude-fae8-cwd",
