@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/FreeTrader/backend/快速开始.md",
+                "file": "blender/kurtips/修改器.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "快速开始"
+              "title": "修改器"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Projects/FreeTrader/backend/快速开始.md",
+                "file": "blender/kurtips/修改器.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "快速开始 的关系图"
+              "title": "修改器 的关系图"
             }
           }
         ]
@@ -266,10 +266,17 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "6cdfd2f51055e2fa",
+  "active": "0e249211d4b20b1b",
   "lastOpenFiles": [
-    "Unity/目录.md",
+    "Pasted image 20260214145156.png",
+    "blender/kurtips/建模.md",
+    "blender/kurtips/修改器.md",
+    "blender/kurtips/快捷键.md",
     "Projects/FreeTrader/backend/快速开始.md",
+    "blender/kurtips",
+    "blender",
+    "计算机图形学",
+    "Unity/目录.md",
     "React/React MOC.md",
     "Projects/FreeTrader/backend/测试与部署.md",
     "Unity/reference.md",
@@ -293,16 +300,9 @@
     "Unity/01-环境搭建与核心特性/标准化开发环境构建/Unity Hub 版本管理与模块安装.md",
     "Projects/FreeTrader/backend/API 接口文档/认证接口.md",
     "Projects/FreeTrader/backend/API 接口文档/板块接口.md",
-    "Projects/FreeTrader/backend/Authentication_API.md",
-    "Projects/FreeTrader/backend/Backend_Overview.md",
-    "Projects/FreeTrader/backend/Coding_Standards.md",
-    "Projects/FreeTrader/backend/12-API接口文档.md",
     "Unity/tmpclaude-638c-cwd",
     "Unity/tmpclaude-f1a1-cwd",
     "Unity/tmpclaude-fae8-cwd",
-    "Unity/tmpclaude-afa8-cwd",
-    "Unity/tmpclaude-20d3-cwd",
-    "Unity/tmpclaude-ec19-cwd",
-    "Unity/tmpclaude-5507-cwd"
+    "Unity/tmpclaude-afa8-cwd"
   ]
 }
