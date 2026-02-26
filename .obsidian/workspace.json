@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blender/kurtips/查漏补缺.md",
+                "file": "blender/kurtips/修改器.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "查漏补缺"
+              "title": "修改器"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "blender/kurtips/查漏补缺.md",
+                "file": "blender/kurtips/修改器.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "查漏补缺 的关系图"
+              "title": "修改器 的关系图"
             }
           }
         ]
@@ -268,11 +268,28 @@
   },
   "active": "572c0c424534107b",
   "lastOpenFiles": [
-    "blender/kurtips/快捷键.md",
-    "blender/kurtips/查漏补缺.md",
-    "blender/kurtips/修改器.md",
+    "blender/kurtips/建模/龟背竹.md",
+    "Pasted image 20260226224956.png",
+    "Pasted image 20260226224812.png",
+    "blender/kurtips/建模/空心木桩.md",
+    "blender/kurtips/建模/花瓣.md",
     "blender/kurtips/建模.md",
-    "Pasted image 20260214145156.png",
+    "blender/kurtips/快捷键.md",
+    "Pasted image 20260226215945.png",
+    "Pasted image 20260226214104.png",
+    "blender/kurtips/修改器.md",
+    "blender/kurtips/建模/树桩.md",
+    "Pasted image 20260226205430.png",
+    "Pasted image 20260226204428.png",
+    "Pasted image 20260226203336.png",
+    "Pasted image 20260226203046.png",
+    "Pasted image 20260226201745.png",
+    "Pasted image 20260226201438.png",
+    "blender/kurtips/插件.md",
+    "blender/kurtips/建模/蘑菇.md",
+    "blender/kurtips/查漏补缺.md",
+    "blender/kurtips/父子级.md",
+    "blender/kurtips/建模",
     "Projects/FreeTrader/backend/快速开始.md",
     "blender/kurtips",
     "blender",
@@ -293,17 +310,8 @@
     "Unity/01-环境搭建与核心特性/Unity 2022 LTS 核心技术背景/Netcode for GameObjects (NGO) 联机方案重构.md",
     "Unity/01-环境搭建与核心特性/Unity 2022 LTS 核心技术背景/面向数据的技术栈 (DOTS) 的生产环境集成.md",
     "Unity/01-环境搭建与核心特性/Unity 2022 LTS 核心技术背景/LTS 版本的定义与稳定性优势.md",
-    "Unity/01-环境搭建与核心特性/Unity 2022 LTS 核心技术背景/渲染管线演进 (URP Forward+ 与 HDRP 水体 云层).md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/Git 环境配置与 .gitignore 文件设置.md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/智能提示 (IntelliSense) 与 API 文档关联.md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/目标平台 Build Support 的选择 (Android iOS WebGL).md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/标准化开发环境构建 MOC.md",
-    "Unity/01-环境搭建与核心特性/标准化开发环境构建/Unity Hub 版本管理与模块安装.md",
-    "Projects/FreeTrader/backend/API 接口文档/认证接口.md",
-    "Projects/FreeTrader/backend/API 接口文档/板块接口.md",
     "Unity/tmpclaude-638c-cwd",
     "Unity/tmpclaude-f1a1-cwd",
-    "Unity/tmpclaude-fae8-cwd",
-    "Unity/tmpclaude-afa8-cwd"
+    "Unity/tmpclaude-fae8-cwd"
   ]
 }
