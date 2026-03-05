@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blender/kurtips/修改器.md",
+                "file": "blender/kurtips/曲线.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "修改器"
+              "title": "曲线"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "blender/kurtips/修改器.md",
+                "file": "blender/kurtips/曲线.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -109,12 +109,12 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 0.3823010968769962,
+                  "scale": 0.5359795996225929,
                   "close": true
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "修改器 的关系图"
+              "title": "曲线 的关系图"
             }
           }
         ]
@@ -219,13 +219,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "blender/kurtips/修改器.md",
+                "file": "blender/kurtips/曲线.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "修改器 的大纲"
+              "title": "曲线 的大纲"
             }
           }
         ],
@@ -266,28 +266,31 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "54e1ec48b74125e1",
+  "active": "572c0c424534107b",
   "lastOpenFiles": [
-    "blender/kurtips/曲线.md",
+    "Pasted image 20260305201011.png",
+    "blender/kurtips/建模/小狐狸.md",
+    "Pasted image 20260305194821.png",
+    "Pasted image 20260305191114.png",
+    "Pasted image 20260304220546.png",
+    "Pasted image 20260304215951.png",
+    "Pasted image 20260304214822.png",
+    "blender/kurtips/建模/石头.md",
+    "Pasted image 20260304213543.png",
+    "Pasted image 20260304211624.png",
     "blender/kurtips/修改器.md",
-    "Pasted image 20260301171913.png",
-    "Pasted image 20260301171746.png",
+    "Pasted image 20260304204231.png",
+    "Pasted image 20260304203124.png",
+    "Pasted image 20260304203007.png",
+    "blender/kurtips/曲线.md",
+    "blender/kurtips/快捷键.md",
     "blender/kurtips/建模.md",
-    "Pasted image 20260301170427.png",
     "blender/kurtips/建模/藤曼.md",
-    "Pasted image 20260301170121.png",
     "blender/kurtips/查漏补缺.md",
-    "Pasted image 20260301163044.png",
-    "Pasted image 20260301145829.png",
-    "Pasted image 20260301144417.png",
-    "Pasted image 20260227221630.png",
-    "Pasted image 20260227220554.png",
-    "Pasted image 20260227213414.png",
     "blender/kurtips/建模/树叶.md",
     "blender/kurtips/建模/空心木桩.md",
     "blender/kurtips/建模/龟背竹.md",
     "blender/kurtips/建模/花瓣.md",
-    "blender/kurtips/快捷键.md",
     "blender/kurtips/建模/树桩.md",
     "blender/kurtips/插件.md",
     "blender/kurtips/建模/蘑菇.md",
@@ -306,10 +309,8 @@
     "Projects/FreeTrader/backend/convert_to_obsidian.py",
     "Projects/FreeTrader/backend/项目概述/项目概述_new.md",
     "Projects/基金行情展示系统/系统图表.md",
-    "Projects/基金行情展示系统/需求分析文档.md",
     "新建文件夹",
     "Projects/基金行情展示系统",
-    "Unity/01-环境搭建与核心特性/Unity 2022 LTS 核心技术背景/Unity 2022 LTS 核心技术背景 MOC.md",
     "Unity/tmpclaude-638c-cwd",
     "Unity/tmpclaude-f1a1-cwd",
     "Unity/tmpclaude-fae8-cwd"
