@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blender/kurtips/曲线.md",
+                "file": "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "曲线"
+              "title": "main_agent_architecture_v3.1_simplified"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "blender/kurtips/曲线.md",
+                "file": "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,14 +114,15 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "曲线 的关系图"
+              "title": "main_agent_architecture_v3.1_simplified 的关系图"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "17da2483950c5e4a",
@@ -268,21 +269,26 @@
   },
   "active": "572c0c424534107b",
   "lastOpenFiles": [
-    "Pasted image 20260305201011.png",
-    "blender/kurtips/建模/小狐狸.md",
-    "Pasted image 20260305194821.png",
-    "Pasted image 20260305191114.png",
-    "Pasted image 20260304220546.png",
-    "Pasted image 20260304215951.png",
-    "Pasted image 20260304214822.png",
-    "blender/kurtips/建模/石头.md",
-    "Pasted image 20260304213543.png",
-    "Pasted image 20260304211624.png",
-    "blender/kurtips/修改器.md",
-    "Pasted image 20260304204231.png",
-    "Pasted image 20260304203124.png",
-    "Pasted image 20260304203007.png",
+    "blender/kurtips/材质/基础.md",
+    "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
+    "Projects/Mirror",
+    "resource/Pasted image 20260214145156.png",
+    "blender/kurtips/材质/BSDF.md",
+    "resource",
+    "resource/Pasted image 20260319195808.png",
+    "resource/Pasted image 20260319195727.png",
+    "resource/Pasted image 20260319195125.png",
+    "resource/Pasted image 20260319194700.png",
+    "resource/Pasted image 20260319193916.png",
+    "resource/Pasted image 20260319193611.png",
+    "Pasted image 20260319193548.png",
+    "Pasted image 20260319193449.png",
     "blender/kurtips/曲线.md",
+    "blender/kurtips/材质",
+    "resource/Pasted image 20260305201011.png",
+    "blender/kurtips/建模/小狐狸.md",
+    "blender/kurtips/建模/石头.md",
+    "blender/kurtips/修改器.md",
     "blender/kurtips/快捷键.md",
     "blender/kurtips/建模.md",
     "blender/kurtips/建模/藤曼.md",
@@ -307,12 +313,7 @@
     "user_info.sql.md",
     "[[README.md",
     "Projects/FreeTrader/backend/convert_to_obsidian.py",
-    "Projects/FreeTrader/backend/项目概述/项目概述_new.md",
-    "Projects/基金行情展示系统/系统图表.md",
     "新建文件夹",
-    "Projects/基金行情展示系统",
-    "Unity/tmpclaude-638c-cwd",
-    "Unity/tmpclaude-f1a1-cwd",
-    "Unity/tmpclaude-fae8-cwd"
+    "Projects/基金行情展示系统"
   ]
 }
