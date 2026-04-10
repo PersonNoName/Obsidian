@@ -1,10 +1,11 @@
 # Main Agent 精简架构设计文档
 
-> **版本**：v3.3（基于 v3.2 更新）
+> **版本**：v3.4（基于 v3.3 更新）
 > **用途**：供 AI 进行代码架构编写参考，涵盖宏观架构、模块设计、数据结构、进化机制与稳定性保障。
 > **精简原则**：保留所有核心功能，合并冗余模块，推迟非必要的边界防护至第二期。
 > **v3.2 更新内容**：重构人格进化系统——以「行为规则」替代数值特质作为主要进化载体；引入「双速进化」机制（快适应+慢进化）；新增进化可见性成长日志（EvolutionJournal）。
 > **v3.3 更新内容**：Token 预算提升至 5000 并引入动态储备池；Core Memory 语义从 per-session 改为 per-user；补充 InteractionSignal 信号抽取器定义；完善规则语义去重、进化链式触发、SSE 连接复用、分关系类型置信度衰减等细节。
+> **v3.4 更新内容**：补充 Provider 抽象层（Chat / Embedding / Reranker）与模型路由配置，明确 `openai_compatible` 协议族与 vendor 解耦；新增 Platform 预留接口层；修复 `ActionRouter → Blackboard.assign()` 接口不一致、HITL 挂起状态缺失、Core Memory 多租户写入键不完整等可实现性问题；补全损坏的 `Observer / MetaCognitionReflector` 文档段落。
 
 ---
 
@@ -16,10 +17,12 @@
    - 3.1 [记忆挂载区](#31-记忆挂载区)
    - 3.2 [核心推理引擎（Soul Engine）](#32-核心推理引擎soul-engine)
    - 3.3 [动作路由区](#33-动作路由区)
+   - 3.4 [Platform 接入预留层](#34-platform-接入预留层)
 4. [任务执行层](#4-任务执行层)
    - 4.1 [Task 系统](#41-task-系统)
    - 4.2 [Blackboard 黑板](#42-blackboard-黑板)
    - 4.3 [Sub-agents](#43-sub-agents)
+   - 4.4 [模型 Provider 抽象层](#44-模型-provider-抽象层)
 5. [后台异步进化层](#5-后台异步进化层)
    - 5.1 [异步事件总线](#51-异步事件总线)
    - 5.2 [Observer 后台观察引擎](#52-observer-后台观察引擎)
@@ -46,6 +49,7 @@
 | **快慢分离**   | 前台同步层极速响应（<2s），后台异步层从容进化，两者通过事件总线单向解耦，前台永不等待后台                                      |
 | **拒绝信息膨胀** | Core Memory 强制 Token 预算上限（5000 tokens），四区块基础配额 + 动态储备池，通过 LLM 压缩旧条目，Prompt 始终保持精准可控 |
 | **高内聚低耦合** | 记忆管理、主控推理、进化引擎完全解耦，支持独立单元测试和模型替换                                                    |
+| **外部能力双解耦** | 大模型 Provider 与接入 Platform 必须通过端口层接入；切换模型供应商或接入平台时不改核心业务代码                                 |
 | **进化不阻塞**  | 所有进化行为发生在异步后台，进化结果通过 Core Memory 在下次推理时自然生效                                         |
 | **渐进不突变**  | 人格与认知进化采用小学习率+惯性更新，配合漂移检测与版本回滚，防止性格突变                                               |
 | **绝对不遗忘**  | 引入"钉选（Pinning）"机制，确保用户核心禁忌与绝对约束免疫数据衰减与压缩                                            |
@@ -162,8 +166,9 @@ VECTOR_RETRIEVAL_CONFIG = {
     "ef_search": 64,
     "recall_top_k": 20,
     "final_top_k": 8,
-    "rerank_model": "bge-reranker-v2-m3",    # 仅按需调用
-    "rerank_variance_threshold": 0.15,        # 方差超过此值才触发 Rerank
+    "embedding_profile": "retrieval.embedding",   # 由 ModelProviderRegistry 解析
+    "rerank_profile": "retrieval.reranker",       # 仅按需调用，可映射到本地 / openai_compatible / 第三方
+    "rerank_variance_threshold": 0.15,            # 方差超过此值才触发 Rerank
     "score_threshold": 0.5,
     "namespace_priority": [
         "experience",
@@ -267,18 +272,23 @@ class ActionRouter:
             case "publish_task":
                 task = await self.task_system.create(action.content)
                 best_agent, cap_score = await self.blackboard.evaluate_agents(task)
-                if cap_score < 0.3:
-                    fallback_msg = f"当前工具无法稳妥完成此任务（置信度 {cap_score}），请求指示。"
+
+                if not best_agent or cap_score < 0.3:
+                    fallback_msg = f"当前工具无法稳妥完成此任务（置信度 {cap_score:.2f}），请求指示。"
                     result = await self.hitl_gateway.ask_user(fallback_msg)
                     await self.soul_engine.continue_with(result)
-                elif cap_score < 0.5:
+                    return
+
+                task.assigned_to = best_agent.name  # 先写入 Task，再调用 Blackboard.assign(task)
+
+                if cap_score < 0.5:
                     # 中置信度：尝试执行，但提前通知用户可能不完美
-                    await self.blackboard.assign(task, best_agent)
+                    await self.blackboard.assign(task)
                     await self.reply_to_user(
                         f"正在尝试处理，但置信度偏低（{cap_score:.1f}），结果可能需要你确认。"
                     )
                 else:
-                    await self.blackboard.assign(task, best_agent)
+                    await self.blackboard.assign(task)
 
             case "hitl_relay":
                 result = await self.hitl_gateway.ask_user(action.content)
@@ -288,6 +298,79 @@ class ActionRouter:
                 result = await self.tool_executor.run(action.content)
                 await self.soul_engine.continue_with(result)
 ```
+
+### 3.4 Platform 接入预留层
+
+**职责**：屏蔽不同接入平台（Web / App / 微信 / Telegram / Slack / API）的收发差异、流式能力差异、HITL 交互能力差异。平台暂不实现，但必须先定义标准接口，避免核心链路直接耦合到某一渠道。
+
+#### 设计原则
+
+- **平台只负责 I/O，不负责推理**：平台层只做协议适配、消息标准化、能力声明，不参与 Soul Engine 决策
+- **核心链路只依赖抽象对象**：`ActionRouter`、`HITLGateway`、`ToolExecutor` 仅感知 `PlatformContext / InboundMessage / OutboundMessage`
+- **平台能力显式声明**：如 `streaming`、`file_upload`、`hitl_modal`、`buttons`、`voice`，由平台适配器上报，Router 决定降级策略
+- **会话标识与用户标识分离**：`user_id` 归属长期记忆；`session_id` 归属当前对话；`platform_conversation_id` 仅用于平台回写
+
+```python
+@dataclass
+class PlatformContext:
+    platform: str                    # web / app / wechat / telegram / slack / api
+    user_id: str
+    session_id: str
+    platform_conversation_id: Optional[str] = None
+    capabilities: set[str] = field(default_factory=set)
+    metadata: dict = field(default_factory=dict)
+
+
+@dataclass
+class InboundMessage:
+    text: str
+    user_id: str
+    session_id: str
+    attachments: list[dict] = field(default_factory=list)
+    platform_ctx: Optional[PlatformContext] = None
+
+
+@dataclass
+class OutboundMessage:
+    type: Literal["text", "stream", "card", "hitl_request"] = "text"
+    content: Any = ""
+    metadata: dict = field(default_factory=dict)
+
+
+@dataclass
+class HitlRequest:
+    task_id: str
+    title: str
+    description: str
+    options: list[str] = field(default_factory=lambda: ["approve", "reject"])
+    risk_level: Literal["low", "medium", "high"] = "medium"
+    metadata: dict = field(default_factory=dict)
+
+
+class PlatformAdapter(ABC):
+    @abstractmethod
+    async def normalize_inbound(self, raw_event: Any) -> InboundMessage:
+        pass
+
+    @abstractmethod
+    async def send_outbound(self, ctx: PlatformContext, message: OutboundMessage) -> None:
+        pass
+
+    @abstractmethod
+    async def send_hitl(self, ctx: PlatformContext, req: HitlRequest) -> None:
+        pass
+
+    async def edit_message(self, ctx: PlatformContext, message_id: str, patch: dict) -> None:
+        """支持的平台可覆盖，如 Web/App 流式增量更新"""
+        pass
+```
+
+**V1 落地建议**：
+
+- 先实现 `WebPlatformAdapter` 作为默认通路
+- `HITLGateway` 内部只依赖 `PlatformAdapter.send_hitl()`，不再直接依赖任何前端弹窗实现
+- Router 在回复前读取 `platform_ctx.capabilities`：若不支持流式，则自动降级为一次性文本输出
+- 后续扩展 Telegram / 企业 IM 时，仅新增 adapter，不修改 `SoulEngine / Blackboard / TaskSystem`
 
 ---
 
@@ -308,7 +391,7 @@ class Task:
     intent: str = ""
     prompt_snapshot: str = ""       # 派发时的完整 Prompt（反思素材）
     status: Literal[
-        "pending", "running", "done", "failed", "interrupted", "cancelled"
+        "pending", "running", "waiting_hitl", "done", "failed", "interrupted", "cancelled"
     ] = "pending"
     priority: int = 1               # 0=紧急, 1=正常, 2=低优
     depends_on: list[str] = field(default_factory=list)
@@ -327,6 +410,7 @@ class Task:
 
 ```
 pending ──→ running ──→ done
+          └──→ waiting_hitl ──→ running
                    └──→ failed ──→ (retry) pending
                                └──→ interrupted ──→ [级联取消 children]
 ```
@@ -405,13 +489,14 @@ class TaskMonitor:
 
 - `evaluate_agents()` → `assign()` 是主路径：评分后选最优 agent，分数不足则升级 HITL
 - `on_task_complete()` / `on_task_failed()` 是对称的两条回调路径，结构相同，仅事件优先级不同
-- `resume()` 是 HITL 专用恢复入口，Sub-agent 等待期间任务挂起，用户响应后由 Blackboard 重注入
+- `on_task_waiting_hitl()` 是挂起入口：高风险权限请求不会被标成 `failed`，而是进入 `waiting_hitl`
+- `resume()` 是 HITL 专用恢复入口，用户响应后由 Blackboard 重注入到原 Sub-agent
 - 对 EventBus 完全解耦：Blackboard 只管 `emit()`，不知道下游订阅者是谁
 
 ```python
 class Blackboard:
 
-    async def evaluate_agents(self, task: Task) -> tuple[SubAgent, float]:
+    async def evaluate_agents(self, task: Task) -> tuple[Optional[SubAgent], float]:
         """遍历 agent_registry，取最高能力评分的 agent"""
         best_agent, best_score = None, 0.0
         for agent in self.agent_registry.values():
@@ -421,17 +506,36 @@ class Blackboard:
         return best_agent, best_score
 
     async def assign(self, task: Task) -> None:
-        """将 Task 委派给指定 Sub-agent，不阻塞等待结果"""
+        """将 Task 委派给 task.assigned_to 指定的 Sub-agent，不阻塞等待结果"""
+        if not task.assigned_to:
+            raise ValueError("task.assigned_to must be set before assign()")
+
         agent = self.agent_registry.get(task.assigned_to)
+        if not agent:
+            raise ValueError(f"agent not found: {task.assigned_to}")
+
         task.status = "running"
         await self.task_store.update(task)
         asyncio.create_task(agent.execute(task))   # 异步启动，立即返回
+
+    async def on_task_waiting_hitl(self, task: Task, request: dict) -> None:
+        """高风险权限 / 外部确认请求：挂起任务，不视为失败"""
+        task.status = "waiting_hitl"
+        task.metadata["hitl_request"] = request
+        await self.task_store.update(task)
+        await self.event_bus.emit("task_waiting_hitl", {"task": task, "request": request})
 
     async def resume(self, task_id: str, hitl_result: dict) -> None:
         """HITL 用户响应后恢复挂起的任务"""
         task = await self.task_store.get(task_id)
         task.metadata["hitl_result"] = hitl_result
+        task.status = "running"
+        await self.task_store.update(task)
+
         agent = self.agent_registry.get(task.assigned_to)
+        if not agent:
+            raise ValueError(f"agent not found: {task.assigned_to}")
+
         asyncio.create_task(agent.resume(task, hitl_result))
 
     async def on_task_complete(self, task: Task) -> None:
@@ -457,19 +561,20 @@ class Blackboard:
             await agent.cancel()
 ```
 
-#### 失败分类处理
+#### 失败 / 挂起分类处理
 
-Sub-agent 回调 `on_task_failed` 时应在 `error_trace` 中区分失败类型，以便 `MetaCognitionReflector` 归因：
+Sub-agent 回调 Blackboard 时应在 `error_trace` 中区分失败类型，以便 `MetaCognitionReflector` 归因；需要用户授权的情况不走失败路径，而是进入 `waiting_hitl`。
 
-| 失败类型 | error_trace 标识 | 重试策略 |
-|---------|-----------------|---------|
-| 网络超时 / OOM | `RETRYABLE: ...` | 指数退避重入队 |
-| 任务本身不可完成 | `FATAL: ...` | 直接 `interrupted`，不消耗重试次数 |
-| 心跳丢失（进程崩溃） | `Agent Heartbeat Lost` | 视为 RETRYABLE |
-| 权限被用户拒绝 | `HITL_REJECTED: ...` | 直接 `interrupted` |
+| 结果类型 | 标识 | Blackboard 行为 |
+|---------|------|----------------|
+| 成功 | `NONE` | `on_task_complete()` |
+| 临时性失败 | `RETRYABLE: ...` | `on_task_failed()`，TaskSystem 可指数退避重试 |
+| 致命失败 | `FATAL: ...` | `on_task_failed()`，后续转 `interrupted`，不消耗重试次数 |
+| 心跳丢失 | `Agent Heartbeat Lost` | 视为 `RETRYABLE` |
+| 需要用户授权 | `HITL_REQUIRED: ...` | `on_task_waiting_hitl()` |
+| 用户拒绝授权 | `HITL_REJECTED: ...` | `on_task_failed()`，后续转 `interrupted` |
 
 ---
-
 ### 4.3 Sub-agents
 
 #### 基类接口（ABC）
@@ -492,6 +597,10 @@ class SubAgent(ABC):
     async def estimate_capability(self, task: Task) -> float:
         """返回 0~1 的能力评分，必须轻量（无网络调用，<10ms）"""
         pass
+
+    async def resume(self, task: Task, hitl_result: dict) -> TaskResult:
+        """HITL 恢复入口；默认直接回到 execute，由子类按需覆盖"""
+        return await self.execute(task)
 
     async def cancel(self) -> None:
         """Blackboard 级联取消时调用，子类可覆盖以释放外部资源"""
@@ -649,10 +758,12 @@ class CodeAgent(SubAgent):
 
         HIGH_RISK = {"network_request", "dangerous_shell", "delete_files"}
         if permission_type in HIGH_RISK:
-            # 挂起任务，通过 Blackboard → ActionRouter → hitl_relay 弹窗给用户
-            await self.blackboard.on_task_failed(
-                task, f"HITL_REQUIRED: permission={permission_type}"
-            )
+            # 挂起任务，通过 Blackboard → ActionRouter → hitl_relay / PlatformAdapter 发给用户
+            await self.blackboard.on_task_waiting_hitl(task, {
+                "permission_id": permission_id,
+                "permission_type": permission_type,
+                "session_id": session_id,
+            })
             return
 
         # 低风险：自动 approve
@@ -660,6 +771,19 @@ class CodeAgent(SubAgent):
             f"{OPENCODE_BASE_URL}/session/{session_id}/permissions/{permission_id}",
             json={"response": "approve", "remember": False},
         )
+
+    async def resume(self, task: Task, hitl_result: dict) -> TaskResult:
+        """
+        用户在 HITL 中确认后恢复任务。
+        典型做法：读取 task.metadata["hitl_request"] 与 hitl_result，
+        决定 approve / reject 原权限请求，再继续监听 session。
+        """
+        if hitl_result.get("decision") == "reject":
+            await self.blackboard.on_task_failed(task, "HITL_REJECTED: user denied permission")
+            return TaskResult(task_id=task.id, status="interrupted", error_trace="HITL rejected")
+
+        # 具体实现可根据 session_id / permission_id 回写 OpenCode 权限接口
+        return TaskResult(task_id=task.id, status="running", result={"summary": "Task resumed"})
 
     async def _fetch_result(
         self, client: httpx.AsyncClient, session_id: str, task: Task
@@ -766,6 +890,166 @@ class WebAgent(SubAgent):
 
 ---
 
+
+### 4.4 模型 Provider 抽象层
+
+**职责**：将系统中的「大模型 / 轻量模型 / Embedding / Reranker」统一收口到 Provider 抽象层。业务模块只关心能力角色（chat / embedding / rerank），不关心底层是 OpenAI、MiniMax、Ollama 还是本地兼容服务。
+
+#### 设计原则
+
+- **协议族与厂商解耦**：`provider_type` 不等于 `vendor`。例如 `provider_type = openai_compatible` 时，`vendor` 可以是 `openai / minimax / oneapi / vllm`
+- **模型角色与具体型号解耦**：业务代码只写 `reasoning.main`、`retrieval.embedding`、`retrieval.reranker` 等逻辑 profile，不写死具体模型名
+- **Chat / Embedding / Reranker 分端口抽象**：避免一个“万能 Provider”接口既处理生成又处理向量化
+- **路由配置中心化**：所有模型选择、回退链、超时、限流、base_url、api_key 引用统一放入配置中心，而不是散落在业务代码
+- **支持 Platform 无关复用**：Web、App、IM 平台共享同一组模型路由，不因平台不同而改动推理代码
+
+#### 核心数据结构
+
+```python
+@dataclass
+class ModelSpec:
+    profile: str                                # reasoning.main / lite.extraction / retrieval.embedding
+    capability: Literal["chat", "embedding", "rerank"]
+    provider_type: Literal["openai_compatible", "ollama", "native", "anthropic"]
+    vendor: str                                 # openai / minimax / ollama / local / anthropic
+    model: str
+    base_url: str
+    api_key_ref: Optional[str] = None
+    timeout_seconds: int = 60
+    max_retries: int = 2
+    metadata: dict = field(default_factory=dict)
+
+
+class ChatModel(ABC):
+    @abstractmethod
+    async def generate(self, messages: list[dict], **kwargs) -> Any:
+        pass
+
+    async def stream(self, messages: list[dict], **kwargs) -> AsyncIterator[dict]:
+        raise NotImplementedError
+
+
+class EmbeddingModel(ABC):
+    @abstractmethod
+    async def embed(self, texts: list[str], **kwargs) -> list[list[float]]:
+        pass
+
+
+class RerankerModel(ABC):
+    @abstractmethod
+    async def rerank(self, query: str, docs: list[str], **kwargs) -> list[dict]:
+        pass
+```
+
+#### Registry / Router
+
+```python
+class ModelProviderRegistry:
+    """
+    负责把 profile -> ModelSpec -> Provider 实例 的解析过程统一封装。
+    上层只按 profile 取能力，不感知底层供应商。
+    """
+    def __init__(self, specs: dict[str, ModelSpec]):
+        self.specs = specs
+        self._instances = {}
+
+    def chat(self, profile: str) -> ChatModel:
+        spec = self.specs[profile]
+        assert spec.capability == "chat"
+        return self._get_or_create(spec)
+
+    def embedding(self, profile: str) -> EmbeddingModel:
+        spec = self.specs[profile]
+        assert spec.capability == "embedding"
+        return self._get_or_create(spec)
+
+    def reranker(self, profile: str) -> RerankerModel:
+        spec = self.specs[profile]
+        assert spec.capability == "rerank"
+        return self._get_or_create(spec)
+```
+
+#### 推荐路由配置
+
+```python
+MODEL_ROUTING = {
+    # 主推理模型：协议族是 openai_compatible，但 vendor 可不是 OpenAI
+    "reasoning.main": ModelSpec(
+        profile="reasoning.main",
+        capability="chat",
+        provider_type="openai_compatible",
+        vendor="minimax",
+        model="MiniMax-M1-80k",
+        base_url="https://<minimax-compatible-endpoint>/v1",
+        api_key_ref="secrets/models/minimax",
+        timeout_seconds=90,
+    ),
+
+    # 轻量模型：用于知识抽取 / 反思 / 总结
+    "lite.extraction": ModelSpec(
+        profile="lite.extraction",
+        capability="chat",
+        provider_type="openai_compatible",
+        vendor="openai",
+        model="gpt-4.1-mini",
+        base_url="https://api.openai.com/v1",
+        api_key_ref="secrets/models/openai",
+        timeout_seconds=30,
+    ),
+
+    # Embedding：可选 openai_compatible
+    "retrieval.embedding": ModelSpec(
+        profile="retrieval.embedding",
+        capability="embedding",
+        provider_type="openai_compatible",
+        vendor="openai",
+        model="text-embedding-3-large",
+        base_url="https://api.openai.com/v1",
+        api_key_ref="secrets/models/openai",
+    ),
+
+    # Embedding：也可切换到 Ollama，只改配置，不改业务调用
+    "retrieval.embedding.local": ModelSpec(
+        profile="retrieval.embedding.local",
+        capability="embedding",
+        provider_type="ollama",
+        vendor="ollama",
+        model="nomic-embed-text",
+        base_url="http://127.0.0.1:11434",
+    ),
+
+    # Reranker：按需调用，可本地部署
+    "retrieval.reranker": ModelSpec(
+        profile="retrieval.reranker",
+        capability="rerank",
+        provider_type="native",
+        vendor="local",
+        model="bge-reranker-v2-m3",
+        base_url="http://127.0.0.1:8088",
+    ),
+}
+```
+
+#### 业务侧调用约束
+
+- `SoulEngine`、`MetaCognitionReflector`、`PersonalityEvolver` 只能通过 `model_registry.chat(profile)` 取模型
+- `Observer`、`VectorIndexer`、`RuleDeduplicator` 只能通过 `model_registry.embedding(profile)` 取 embedding
+- `VectorRetriever` 只能通过 `model_registry.reranker(profile)` 取重排器
+- **禁止**在业务模块中硬编码 `model="gpt-4.x"`、`base_url="..."`、`api_key="..."`
+
+#### 失败回退建议
+
+```python
+MODEL_FALLBACKS = {
+    "reasoning.main": ["reasoning.backup_1", "reasoning.backup_2"],
+    "lite.extraction": ["lite.backup"],
+    "retrieval.embedding": ["retrieval.embedding.local"],
+}
+```
+
+> 这样设计后，`provider_type=openai_compatible` 只描述“协议风格”，`vendor=minimax` 才描述“实际供应商”。你的要求——“provider 有 openai 类型的不一定是 openai 模型，也可能是 minimax；embedding 可选 openai 接口或 ollama 接口”——就能被准确表达。
+
+
 ## 5. 后台异步进化层
 
 ### 5.1 异步事件总线
@@ -773,11 +1057,14 @@ class WebAgent(SubAgent):
 ```python
 class EventBus:
     EVENT_TYPES = [
-        "dialogue_ended",   # 对话结束 → 触发 Observer
-        "task_completed",   # 任务完成 → 触发元认知反思（P1）
-        "task_failed",      # 任务失败 → 触发元认知反思（P0，立即）
-        "hitl_feedback",    # 用户 HITL 反馈 → 触发人格信号
-        "evolution_done",   # 进化完成 → 触发 Core Memory 写入
+        "dialogue_ended",      # 对话结束 → 并行触发 Observer / SignalExtractor
+        "observation_done",    # 观察完成 → 触发元认知反思 / 后续进化
+        "lesson_generated",    # Lesson 生成 → 触发 CognitionUpdater / PersonalityEvolver
+        "task_completed",      # 任务完成 → 触发元认知反思（P1）
+        "task_failed",         # 任务失败 → 触发元认知反思（P0，立即）
+        "task_waiting_hitl",   # 高风险操作等待用户确认
+        "hitl_feedback",       # 用户 HITL 反馈 → 触发人格信号
+        "evolution_done",      # 进化完成 → 触发 Core Memory 写入
     ]
 
     async def emit(self, event_type: str, payload: dict) -> None:
@@ -801,7 +1088,7 @@ EVENT_BUS_CONFIG = {
 
 ### 5.2 Observer 后台观察引擎
 
-**职责**：从对话中异步抽取知识三元组，写入 Graph DB 与 Vector DB。
+**职责**：从对话中异步抽取知识三元组，写入 Graph DB 与 Vector DB；同时为后续反思和人格进化提供结构化观察结果。
 
 #### 实体对齐（两层）
 
@@ -851,54 +1138,136 @@ class ObserverEngine:
 
     async def process(self, event: Event):
         dialogue = event.payload["dialogue"]
+        user_id = event.payload["user_id"]
+        session_id = event.payload["session_id"]
+
         if not await self._is_salient(dialogue):
-                                           │  成长日志记录            │
-                                      │  用户可查 / AI 可引用    │
-                                      └────────────────────────┘
+            return None
+
+        triples = await self.model_registry.chat("lite.extraction").generate([
+            {"role": "system", "content": KNOWLEDGE_EXTRACTION_PROMPT.format(dialogue=dialogue)}
+        ])
+        triples = self._normalize_triples(triples)
+
+        for triple in triples:
+            aligned = await self.entity_resolver.resolve(triple)
+            await self.graph_db.upsert_relation(
+                subject=aligned.subject,
+                relation=aligned.relation,
+                object=aligned.object,
+                confidence=aligned.confidence,
+                user_id=user_id,
+            )
+
+        vector_docs = await self._build_vector_docs(dialogue, triples, user_id=user_id, session_id=session_id)
+        if vector_docs:
+            await self.vector_db.upsert(vector_docs)
+
+        await self.event_bus.emit("observation_done", {
+            "user_id": user_id,
+            "session_id": session_id,
+            "triples": triples,
+        })
+        return triples
 ```
 
+#### 写入准则
+
+- Graph DB 写入**长期稳定关系**：偏好、厌恶、工具使用、能力判断、环境约束
+- Vector DB 写入**情境性经验**：对话片段、任务经验、世界经验
+- 近期原文不依赖 Observer 才能命中；前台仍保留 `Session Raw Context`，避免后台延迟影响近轮对话
+- Observer 只负责“观察”，不负责“反思结论”；Lesson 必须由元认知反思器产出
+
+---
+
+### 5.3 元认知反思器
+
+**职责**：在任务完成 / 失败 / 观察完成后，归因“这次为什么成功/失败”，产出结构化 `Lesson`，供认知进化器与人格进化器消费。
+
+#### 设计原则
+
+- **只产出 Lesson，不直接改记忆**：反思器负责归因，不直接写 Core Memory
+- **失败优先**：`task_failed` 为 P0 事件，立即触发反思；`task_completed` 为 P1，可稍后批处理
+- **低置信度丢弃**：避免把含糊的反思写进长期记忆
+- **归因关注可执行性**：Lesson 必须能落到“能力修正 / 世界规律 / 行为规则”之一
+
+#### 反思 Prompt
+
 ```python
-class PersonalityEvolver:
-    """双速进化：快适应（Session 级）+ 慢进化（跨 Session）"""
+META_REFLECTION_PROMPT = """
+你是一个系统元认知反思器。请根据任务快照、任务结果、错误轨迹，总结一条高价值 Lesson。
 
-    # ── 快适应配置 ──
-    FAST_WINDOW_SIZE = 3            # 最近 3 轮对话的信号窗口
-    FAST_MAX_ADAPTATIONS = 5        # 单 Session 最多 5 条快适应规则，超限替换最旧
+要求：
+1. 给出 root_cause（根因）
+2. 给出 lesson（可执行经验）
+3. 判断 is_agent_capability_issue（是否属于 agent 自身能力边界）
+4. 若是世界规律 / 环境约束，请补充 subject / relation / object
+5. 给出 confidence（0~1）
 
-    # ── 慢进化配置 ──
-    SLOW_UPDATE_FREQUENCY = 10      # 每 10 轮对话最多触发一次
-    SIGNAL_CONFIRMATION = 3         # 同方向信号累积 3 次才确认
-    RULE_PROMOTE_THRESHOLD = 0.7    # 快适应规则置信度达到此值时晋升为持久规则
-    RULE_DECAY_THRESHOLD = 0.3      # 低于此值的规则自动清理
+输出 JSON：
+{
+  "root_cause": "...",
+  "lesson": "...",
+  "is_agent_capability_issue": true,
+  "subject": null,
+  "relation": null,
+  "object": null,
+  "confidence": 0.82
+}
 
-    # ── 稳定性配置 ──
-    LEARNING_RATE = 0.05
-    DRIFT_THRESHOLD = 0.3
-    HARD_GUARDRAILS = {
-        "autonomy": (0.2, 0.95),
-        "warmth":   (0.3, 1.0),
-        "caution":  (0.4, 0.9),
-    }OMPT.format(
-                task_snapshot=task.prompt_snapshot,
-                task_result=task.result,
-                error_trace=task.error_trace,
-                domain=task.metadata.get("domain", "unknown"),
-            )
-        )
+输入：
+- task_snapshot: {task_snapshot}
+- task_result: {task_result}
+- error_trace: {error_trace}
+- domain: {domain}
+"""
+```
+
+#### 核心实现
+
+```python
+class MetaCognitionReflector:
+
+    async def reflect(self, task: Task) -> Optional[Lesson]:
+        result = await self.model_registry.chat("lite.extraction").generate([
+            {
+                "role": "system",
+                "content": META_REFLECTION_PROMPT.format(
+                    task_snapshot=task.prompt_snapshot,
+                    task_result=task.result,
+                    error_trace=task.error_trace,
+                    domain=task.metadata.get("domain", "unknown"),
+                ),
+            }
+        ])
+
         if result["confidence"] < 0.5:
             return None  # 低置信度反思直接丢弃，防止认知污染
 
         lesson = Lesson(
             task_id=task.id,
+            user_id=task.metadata["user_id"],
             domain=result.get("domain", task.metadata.get("domain")),
             outcome=task.status,
             root_cause=result["root_cause"],
             lesson_text=result["lesson"],
             is_agent_capability_issue=result["is_agent_capability_issue"],
+            subject=result.get("subject"),
+            relation=result.get("relation"),
+            object=result.get("object"),
+            confidence=result["confidence"],
         )
-        await self.event_bus.emit("evolution_done", {"lesson": lesson})
+        await self.event_bus.emit("lesson_generated", {"lesson": lesson})
         return lesson
 ```
+
+#### 触发策略
+
+| 事件 | 优先级 | 说明 |
+|------|--------|------|
+| `task_failed` | P0 | 立即反思，优先定位根因 |
+| `task_completed` | P1 | 正常反思，沉淀成功经验 |
+| `observation_done` | P1 | 仅在观察结果出现明显模式时触发轻量反思 |
 
 ---
 
@@ -919,7 +1288,7 @@ class CognitionUpdater:
             await self._update_world_model(lesson)
 
     async def _update_self_cognition(self, lesson: Lesson):
-        current = await self.core_memory.get_self_cognition()
+        current = await self.core_memory.get_self_cognition(user_id=lesson.user_id)
         domain = lesson.domain
         entry = current.capability_map.get(domain)
 
@@ -937,7 +1306,7 @@ class CognitionUpdater:
                 known_limits=[] if lesson.outcome == "done" else [lesson.root_cause],
             )
 
-        await self.core_memory_scheduler.write("self_cognition", current)
+        await self.core_memory_scheduler.write(lesson.user_id, "self_cognition", current)
 
     async def _update_world_model(self, lesson: Lesson):
         """规律性结论写入 Graph DB，Core Memory 快照由调度器合成"""
@@ -1031,6 +1400,7 @@ class InteractionSignal:
         "explicit_instruction",   # 用户直接说 "简洁一点" "用英文回复"
         "implicit_behavior",      # 用户行为模式推断
     ] = "implicit_behavior"
+    user_id: str = ""
     content: str = ""              # 显式指令的原文，或隐式行为的描述
     behavior_tag: Optional[Literal[
         "shorten_response",       # 用户连续缩短/截断 AI 回复
@@ -1050,21 +1420,23 @@ class SignalExtractor:
     订阅 EventBus 的 dialogue_ended 事件，与 Observer 并行执行。
     """
 
-    async def extract(self, dialogue: list[dict]) -> list[InteractionSignal]:
+    async def extract(self, user_id: str, session_id: str, dialogue: list[dict]) -> list[InteractionSignal]:
         signals = []
 
         # ── 1. 显式指令检测：关键词 + 意图分类 ──
-        explicit = self._detect_explicit(dialogue)
+        explicit = self._detect_explicit(user_id, session_id, dialogue)
         if explicit:
             signals.append(explicit)
 
         # ── 2. 隐式行为检测：统计分析最近 N 轮行为模式 ──
-        implicit = self._detect_implicit_patterns(dialogue)
+        implicit = self._detect_implicit_patterns(user_id, session_id, dialogue)
         signals.extend(implicit)
 
         return signals
 
-    def _detect_explicit(self, dialogue: list[dict]) -> Optional[InteractionSignal]:
+    def _detect_explicit(
+        self, user_id: str, session_id: str, dialogue: list[dict]
+    ) -> Optional[InteractionSignal]:
         """从用户最后一轮消息中检测显式风格指令"""
         STYLE_KEYWORDS = [
             "简洁", "直接", "详细", "用中文", "用英文", "正式",
@@ -1075,18 +1447,24 @@ class SignalExtractor:
             if kw in last_user_msg:
                 return InteractionSignal(
                     type="explicit_instruction",
+                    user_id=user_id,
+                    session_id=session_id,
                     content=last_user_msg,
                     strength=1.0,
                 )
         return None
 
-    def _detect_implicit_patterns(self, dialogue: list[dict]) -> list[InteractionSignal]:
+    def _detect_implicit_patterns(
+        self, user_id: str, session_id: str, dialogue: list[dict]
+    ) -> list[InteractionSignal]:
         """分析对话行为模式，生成隐式信号"""
         signals = []
         # 示例：用户连续 3 次只取 AI 回复的前 1-2 句 → shorten_response
         if self._user_truncates_responses(dialogue, threshold=3):
             signals.append(InteractionSignal(
                 type="implicit_behavior",
+                user_id=user_id,
+                session_id=session_id,
                 content="用户倾向于更短的回复",
                 behavior_tag="shorten_response",
                 strength=0.7,
@@ -1096,6 +1474,8 @@ class SignalExtractor:
             detected_lang = self._detect_user_language(dialogue)
             signals.append(InteractionSignal(
                 type="implicit_behavior",
+                user_id=user_id,
+                session_id=session_id,
                 content=f"用户使用 {detected_lang} 交流",
                 behavior_tag="language_switch",
                 strength=0.9,
@@ -1175,7 +1555,7 @@ class PersonalityEvolver:
         if not adaptation:
             return None
 
-        current = await self.core_memory.get_personality()
+        current = await self.core_memory.get_personality(user_id=signal.user_id)
         if len(current.session_adaptations) >= self.FAST_MAX_ADAPTATIONS:
             # 超限时替换最旧的适应规则，而非硬拒绝
             current.session_adaptations.pop(0)
@@ -1211,14 +1591,14 @@ class PersonalityEvolver:
     # 慢进化：跨 Session 积累，写入 Core Memory
     # ═══════════════════════════════════════════
 
-    async def slow_evolve(self, signals: list[InteractionSignal]):
+    async def slow_evolve(self, user_id: str, signals: list[InteractionSignal]):
         """
         跨 Session 慢进化，执行三个操作：
         1. 晋升：高频快适应规则 → 持久行为规则
         2. 淘汰：低置信度规则清理
         3. 基调更新：traits_internal 微调 + baseline_description 重生成
         """
-        current = await self.core_memory.get_personality()
+        current = await self.core_memory.get_personality(user_id=user_id)
         changed = False
 
         # ── 1. 规则晋升：频繁出现的快适应规则 → 持久化 ──
@@ -1281,14 +1661,14 @@ class PersonalityEvolver:
 
         if changed:
             current.version += 1
-            await self.core_memory_scheduler.write("personality", current)
+            await self.core_memory_scheduler.write(user_id, "personality", current)
 
     async def _regenerate_baseline(self, traits: dict[str, float]) -> str:
         """调用轻量 LLM，将 traits 数值转换为一句自然语言人格描述"""
         prompt = f"""根据以下人格特质数值，生成一句简洁的人格基调描述（不超过30字）：
 {traits}
 示例：直接、技术导向、尊重用户自主性的合作者"""
-        return await self.llm_lite.generate(prompt)
+        return await self.model_registry.chat("lite.extraction").generate([{"role": "user", "content": prompt}])
 
     def _is_duplicate_rule(
         self, existing_rules: list[BehavioralRule], new_rule: BehavioralRule
@@ -1320,7 +1700,7 @@ class PersonalityEvolver:
 请生成一条简洁的行为规则（不超过20字），描述 AI 应如何调整回复风格。
 仅输出规则文本，不要解释。
 示例：回复时先给结论，再展开分析"""
-        return await self.llm_lite.generate(prompt)
+        return await self.model_registry.chat("lite.extraction").generate([{"role": "user", "content": prompt}])
 ```
 
 ---
@@ -1330,6 +1710,8 @@ class PersonalityEvolver:
 **职责**：统一管理四区块写入，强制 Token 预算，乐观锁防并发污染。
 
 > **精简说明**：移除完整 DLQ 实现，3 次 CAS 失败改为告警 + 日志记录，DLQ 预留接口供后期扩展。
+>
+> **v3.4 修正**：Core Memory 是 **per-user**，因此持久化键、缓存失效、快照合成都必须显式带 `user_id`，不能只按 `block` 写入。
 
 ```python
 class CoreMemoryScheduler:
@@ -1341,49 +1723,54 @@ class CoreMemoryScheduler:
         "task_experience": 1200,
     }
     DYNAMIC_RESERVE = 1000  # 动态储备池：任一区块超限时可借用
-    _reserve_used: dict = {}  # {block: borrowed_tokens}
+    _reserve_used: dict = {}  # {(user_id, block): borrowed_tokens}
 
-    async def write(self, block: str, content: any, event_id: str = None):
+    async def write(self, user_id: str, block: str, content: any, event_id: str = None):
+        key = f"core_memory:{user_id}:{block}"
+
         for attempt in range(3):
-            current_data, version = await self.db.get_with_version(f"core_memory:{block}")
+            current_data, version = await self.db.get_with_version(key)
 
             # 序列化 + Token 预算检查（is_pinned 条目免压缩）
             serialized = self._serialize_with_pinning(content)
             block_budget = self.BLOCK_BUDGETS[block]
             token_count = self._count_tokens(serialized)
-            # 超出基础配额时尝试从动态储备池借用
+
+            reserve_key = (user_id, block)
             if token_count > block_budget:
-                available_reserve = self.DYNAMIC_RESERVE - sum(self._reserve_used.values())
+                used = sum(v for (uid, _), v in self._reserve_used.items() if uid == user_id)
+                available_reserve = self.DYNAMIC_RESERVE - used
                 overflow = token_count - block_budget
                 if overflow <= available_reserve:
-                    self._reserve_used[block] = overflow
+                    self._reserve_used[reserve_key] = overflow
                 else:
-                    serialized = await self._compress(block, serialized)
+                    serialized = await self._compress(user_id, block, serialized)
 
-            # 乐观锁 CAS 写入
             success = await self.db.cas_upsert(
-                key=f"core_memory:{block}",
+                key=key,
                 value=serialized,
                 expected_version=version,
             )
             if success:
-                await self.cache.invalidate_block(block)
+                await self.cache.invalidate(user_id)
                 return
 
         # 3 次争抢失败 → 告警 + 强制写入（放弃乐观锁，确保数据不丢）
-        await self.logger.warn(f"CoreMemory CAS 写入冲突耗尽，强制写入: block={block}, event_id={event_id}")
-        await self.db.force_upsert(key=f"core_memory:{block}", value=serialized)
-        await self.cache.invalidate_block(block)
+        await self.logger.warn(
+            f"CoreMemory CAS 写入冲突耗尽，强制写入: user={user_id}, block={block}, event_id={event_id}"
+        )
+        await self.db.force_upsert(key=key, value=serialized)
+        await self.cache.invalidate(user_id)
 
-    async def _build_world_model_snapshot(self) -> WorldModel:
+    async def rebuild_world_model_snapshot(self, user_id: str) -> WorldModel:
         """从 Graph DB 合成 world_model 快照，而非双写"""
-        user_model = await self.graph_db.query_user_preferences()
-        agent_profiles = await self.graph_db.query_agent_capabilities()
-        env_constraints = await self.graph_db.query_env_constraints()
+        user_model = await self.graph_db.query_user_preferences(user_id=user_id)
+        agent_profiles = await self.graph_db.query_agent_capabilities(user_id=user_id)
+        env_constraints = await self.graph_db.query_env_constraints(user_id=user_id)
         return WorldModel(
+            env_constraints=env_constraints,
             user_model=user_model,
             agent_profiles=agent_profiles,
-            env_constraints=env_constraints,
         )
 ```
 
@@ -1432,7 +1819,7 @@ class EvolutionJournal:
         entries = await self.journal_store.get_recent(last_n)
         summary_prompt = f"""以第一人称总结以下成长记录，简洁自然，不超过200字：
 {[e.summary for e in entries]}"""
-        return await self.llm_lite.generate(summary_prompt)
+        return await self.model_registry.chat("lite.extraction").generate([{"role": "user", "content": summary_prompt}])
 
     async def get_recent_changes(self, last_n: int = 5) -> list[EvolutionEntry]:
         """供 AI 主动引用近期变化，如"我注意到你偏好..."时使用"""
@@ -1713,6 +2100,19 @@ TOKEN_BUDGET = {
 Task                    # 任务实体（含状态机、快照、重试策略）
 TaskResult              # 任务执行结果
 Lesson                  # 元认知反思产出的经验教训
+HitlRequest             # 高风险操作等待用户确认的结构化请求
+
+# ── 平台接入 ──
+PlatformContext         # 平台上下文（platform / user_id / session_id / capabilities）
+InboundMessage          # 平台标准入站消息
+OutboundMessage         # 平台标准出站消息
+
+# ── 模型 / Provider ──
+ModelSpec               # 单个模型 profile 的配置定义
+ChatModel               # 文本 / 多模态生成接口
+EmbeddingModel          # 向量化接口
+RerankerModel           # 重排接口
+ModelProviderRegistry   # Provider 注册与路由中心
 
 # ── 记忆系统 ──
 CoreMemory              # Core Memory 根对象（四区块）
@@ -1735,29 +2135,34 @@ CircuitBreakerState     # 熔断器状态
 SnapshotRecord          # 版本快照记录
 ```
 
----
-
 ## 12. 模块依赖关系
 
 ```
-用户输入
-   └── ActionRouter（路由）
-         ├── SoulEngine（推理）
-         │    ├── CoreMemoryCache（读）
-         │    └── VectorRetriever（读，按需 Rerank）
-         ├── TaskSystem（写）
-         │    └── Blackboard（委派）
-         │         └── SubAgent（执行）
-         │              └── EventBus（emit 完成/失败事件）
-         └── EventBus（emit 对话结束事件）
+平台输入（Web / App / IM / API）
+   └── PlatformAdapter（标准化入站 / 出站 / HITL）
+         └── ActionRouter（路由）
+               ├── SoulEngine（推理）
+               │    ├── ModelProviderRegistry.chat("reasoning.main")
+               │    ├── CoreMemoryCache（读）
+               │    └── VectorRetriever（读，按需 Rerank）
+               │         ├── ModelProviderRegistry.embedding("retrieval.embedding")
+               │         └── ModelProviderRegistry.reranker("retrieval.reranker")
+               ├── TaskSystem（写）
+               │    └── Blackboard（委派 / 挂起 / 恢复）
+               │         └── SubAgent（执行）
+               │              ├── ModelProviderRegistry（按需）
+               │              └── EventBus（emit 完成/失败/等待授权事件）
+               └── EventBus（emit 对话结束事件）
 
 EventBus（订阅）
    ├── ObserverEngine（→ GraphDB + VectorDB）
+   │    └── ModelProviderRegistry.chat("lite.extraction")
    ├── MetaCognitionReflector（→ Lesson）
-   │    ├── CognitionUpdater（→ CoreMemoryScheduler / GraphDB）  ← 合并后
-   │    └── PersonalityEvolver（双速）
-   │         ├── fast_adapt()（→ Session 内即时生效 + 信号缓冲区）
-   │         └── slow_evolve()（→ CoreMemoryScheduler + EvolutionJournal）
+   │    └── ModelProviderRegistry.chat("lite.extraction")
+   ├── CognitionUpdater（→ CoreMemoryScheduler / GraphDB）
+   ├── PersonalityEvolver（双速）
+   │    ├── fast_adapt()（→ Session 内即时生效 + 信号缓冲区）
+   │    └── slow_evolve()（→ CoreMemoryScheduler + EvolutionJournal）
    ├── EvolutionJournal（→ JournalStore，记录所有进化事件）
    └── CoreMemoryScheduler（→ CoreMemoryCache 刷新）
 
@@ -1769,20 +2174,40 @@ CoreMemoryCache（刷新后）
 
 | 服务 | 用途 | 可替换方案 |
 |------|------|-----------|
-| LLM API（大模型） | 推理、归因、压缩 | OpenAI / Anthropic / 本地模型 |
-| LLM API（轻量模型） | 知识抽取 | Gemini Flash / GPT-4o-mini |
-| Embedding API | 向量化 | OpenAI Ada / 本地模型 |
+| Chat Model Provider | 推理、归因、压缩、总结 | `openai_compatible`（OpenAI / MiniMax / OneAPI / vLLM）/ Anthropic / 本地服务 |
+| Embedding Provider | 向量化、规则语义去重 | `openai_compatible` / `ollama` / 本地 embedding 服务 |
+| Reranker Provider | 检索重排 | 本地 reranker 服务 / 第三方 API |
 | Vector DB | 语义检索 | Qdrant / Weaviate / Pinecone |
 | Graph DB | 关系存储 | Neo4j / Memgraph / Falkordb |
 | 消息队列 | 事件总线 | Redis Streams / 内存队列 |
 | KV 存储 | Core Memory 持久化 | Redis / PostgreSQL JSONB |
+| 平台适配层 | 用户接入与回写 | Web / App / 微信 / Telegram / Slack / API Gateway |
 | **OpenCode Server** | **CodeAgent 代码执行引擎** | **`opencode serve` 常驻，HTTP REST + SSE** |
 
----
+#### 解耦边界要求（必须遵守）
+
+1. `SoulEngine / Observer / PersonalityEvolver / Reflector` **不得直接 new SDK Client**
+2. 所有模型调用必须经 `ModelProviderRegistry`
+3. 所有用户收发、HITL 回写必须经 `PlatformAdapter`
+4. `provider_type` 只表示协议族，不表示供应商
+5. `vendor` 与 `model` 必须可配置；切换 OpenAI → MiniMax、OpenAI Embedding → Ollama Embedding 时不得修改业务代码
 
 ## 13. 精简变更说明
 
-以下是 v3.0 相对 v2.2 的精简变更、v3.1 的细化更新，以及 v3.2 的进化系统重构，每项均注明原因，方便后期回溯或恢复。
+以下是 v3.0 相对 v2.2 的精简变更、v3.1 的细化更新、v3.2 的进化系统重构，以及 v3.4 的解耦补全与可实现性修复，每项均注明原因，方便后期回溯或恢复。
+
+### v3.4 解耦补全与可实现性修复（相对 v3.3）
+
+| 变更项 | v3.3 方案 | v3.4 方案 | 原因 |
+|--------|----------|----------|------|
+| **模型 Provider 抽象** | 仅在“外部服务依赖”里笼统写可替换 | 新增 `ModelSpec / ChatModel / EmbeddingModel / RerankerModel / ModelProviderRegistry` | 将“可替换”落到正式接口，业务代码不再依赖具体厂商 SDK |
+| **OpenAI 类型语义** | `OpenAI` 容易被误解为厂商 | 明确为 `openai_compatible` 协议族；`vendor` 单独配置为 `openai / minimax / oneapi / vllm` | 满足“Provider 是 OpenAI 类型但底层不一定是 OpenAI 模型”的要求 |
+| **Embedding 接口** | 只有“Embedding API 可替换”描述 | 独立出 Embedding Provider 端口，并给出 `openai_compatible / ollama` 路由示例 | 支持检索、规则去重、索引构建统一切换到 OpenAI 接口或 Ollama |
+| **Platform 预留接口** | 只有 HITL / User 概念，没有正式端口 | 新增 `PlatformAdapter + PlatformContext + InboundMessage + OutboundMessage + HitlRequest` | 平台暂不实现，但核心链路已预留稳定接口 |
+| **ActionRouter → Blackboard** | `assign(task, best_agent)` 与 `assign(task)` 签名不一致 | 统一改为先写 `task.assigned_to`，再调用 `assign(task)` | 修复实现级别接口不一致 |
+| **HITL 流程** | 高风险权限通过 `on_task_failed()` 进入失败态 | 新增 `waiting_hitl` 状态和 `on_task_waiting_hitl()` | 修复“等待用户授权”被误标为失败的问题 |
+| **Core Memory 多租户写入** | `core_memory:{block}` 未带 user_id | 改为 `core_memory:{user_id}:{block}`，缓存失效同步改为 `invalidate(user_id)` | 与“Core Memory per-user”语义保持一致 |
+| **损坏文档段落** | `5.2` 与 `5.3` 混杂截断 | 重写 `Observer / MetaCognitionReflector` 两节 | 保证文档本身可读、可实现 |
 
 ### v3.0 精简变更（相对 v2.2）
 
@@ -1826,4 +2251,4 @@ CoreMemoryCache（刷新后）
 
 ---
 
-*文档版本：v3.2 | 架构涵盖：任务进化 + 认知进化 + 人格进化（双速+行为规则） + 进化可见性（成长日志） + 稳定性保障 + Blackboard 完整协同 + CodeAgent/OpenCode HTTP 接入*
+*文档版本：v3.4 | 架构涵盖：任务进化 + 认知进化 + 人格进化（双速+行为规则） + Provider/Platform 解耦 + 进化可见性（成长日志） + 稳定性保障 + Blackboard 完整协同 + CodeAgent/OpenCode HTTP 接入*
