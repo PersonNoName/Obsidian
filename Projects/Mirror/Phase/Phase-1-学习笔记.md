@@ -36,17 +36,17 @@ Phase 1 的目标是**定义接口，不写实现**。通过抽象基类（ABC�
 
 ### Phase 1 文件清单
 
-| 文件 | 内容 |
-|------|------|
-| `app/platform/base.py` | Platform 接口与数据类型 |
-| `app/providers/base.py` | Model Provider 接口与数据类型 |
-| `app/agents/base.py` | SubAgent 抽象基类 |
-| `app/tasks/models.py` | Task 相关数据类 |
-| `app/infra/outbox.py` | OutboxEvent 数据类 |
-| `app/memory/core_memory.py` | Core Memory 数据结构 |
-| `app/evolution/event_bus.py` | Event 总线接口与数据类型 |
-| `app/tools/registry.py` | ToolRegistry 骨架 |
-| `app/hooks/registry.py` | HookRegistry 骨架 |
+| 文件                           | 内容                     |
+| ---------------------------- | ---------------------- |
+| `app/platform/base.py`       | Platform 接口与数据类型       |
+| `app/providers/base.py`      | Model Provider 接口与数据类型 |
+| `app/agents/base.py`         | SubAgent 抽象基类          |
+| `app/tasks/models.py`        | Task 相关数据类             |
+| `app/infra/outbox.py`        | OutboxEvent 数据类        |
+| `app/memory/core_memory.py`  | Core Memory 数据结构       |
+| `app/evolution/event_bus.py` | Event 总线接口与数据类型        |
+| `app/tools/registry.py`      | ToolRegistry 骨架        |
+| `app/hooks/registry.py`      | HookRegistry 骨架        |
 
 ---
 

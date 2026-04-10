@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Mirror/Phase/Phase-0-学习笔记.md",
-                "mode": "source",
+                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Phase-0-学习笔记"
+              "title": "main_agent_architecture_v3.4"
             }
           }
         ]
@@ -86,7 +86,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Projects/Mirror/Phase/Phase-0-学习笔记.md",
+                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -114,7 +114,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Phase-0-学习笔记 的关系图"
+              "title": "main_agent_architecture_v3.4 的关系图"
             }
           }
         ]
@@ -268,10 +268,17 @@
   },
   "active": "23762df9e7e0ad65",
   "lastOpenFiles": [
+    "Projects/Mirror/Phase/Phase-4-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-3-学习笔记.md",
+    "blender/kurtips/材质/基础.md",
+    "blender/kurtips/材质/BSDF.md",
+    "blender/kurtips/材质",
+    "Projects/Mirror/Phase/Phase-2-学习笔记.md",
+    "Projects/Mirror/Phase/phase_3_status.md",
+    "Projects/Mirror/PLAN.md",
     "Projects/Mirror/Phase/Phase-1-学习笔记.md",
     "Projects/Mirror/Phase/Phase-0-学习笔记.md",
     "Projects/Mirror/main_agent_architecture_v3.4.md",
-    "Projects/Mirror/PLAN.md",
     "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
     "Projects/Mirror/Phase",
     "blender/kurtips/查漏补缺.md",
@@ -305,14 +312,7 @@
     "blender",
     "计算机图形学",
     "Unity/目录.md",
-    "React/React MOC.md",
-    "Projects/FreeTrader/backend/测试与部署.md",
-    "Unity/reference.md",
-    "user_info.sql.md",
-    "[[README.md",
     "Projects/FreeTrader/backend/convert_to_obsidian.py",
-    "Projects/FreeTrader/backend/项目概述/项目概述_new.md",
-    "新建文件夹",
-    "Projects/基金行情展示系统"
+    "新建文件夹"
   ]
 }
