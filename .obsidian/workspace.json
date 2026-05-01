@@ -4,24 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "447394f1328d194e",
+        "id": "ef1aef3b2f50e918",
         "type": "tabs",
         "children": [
           {
-            "id": "23762df9e7e0ad65",
+            "id": "3f31c90f3be084e3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
+                "file": "Projects/Mirror/OPTIMIZATION_PLAN.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "main_agent_architecture_v3.4"
+              "title": "OPTIMIZATION_PLAN"
+            }
+          },
+          {
+            "id": "2540a5d41613eae4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Projects/Harness Engineering/Phase1/learning_guide.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "learning_guide"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -86,7 +101,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
+                "file": "Projects/Harness Engineering/Phase1/learning_guide.md",
                 "options": {
                   "collapse-filter": false,
                   "search": "",
@@ -109,19 +124,20 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 1.2414543899482964,
+                  "scale": 0.07058167567046486,
                   "close": true
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "main_agent_architecture_v3.4 的关系图"
+              "title": "learning_guide 的关系图"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 346.5,
+    "collapsed": true
   },
   "right": {
     "id": "17da2483950c5e4a",
@@ -219,13 +235,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java/Springboot/SpringBoot Introduction.md",
+                "file": "blender/kurtips/曲线.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "SpringBoot Introduction 的大纲"
+              "title": "曲线 的大纲"
             }
           }
         ],
@@ -266,53 +282,53 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "23762df9e7e0ad65",
+  "active": "2540a5d41613eae4",
   "lastOpenFiles": [
-    "Projects/Mirror/Phase/Phase-4-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-3-学习笔记.md",
-    "blender/kurtips/材质/基础.md",
-    "blender/kurtips/材质/BSDF.md",
-    "blender/kurtips/材质",
-    "Projects/Mirror/Phase/Phase-2-学习笔记.md",
-    "Projects/Mirror/Phase/phase_3_status.md",
-    "Projects/Mirror/PLAN.md",
-    "Projects/Mirror/Phase/Phase-1-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-0-学习笔记.md",
+    "Projects/Harness Engineering/Phase-4-Agent-Harness-Engineering-架构实战.md",
+    "Projects/Harness Engineering/Phase1/learning_guide.md",
+    "Projects/Harness Engineering/Phase1",
+    "Projects/Harness Engineering/Phase-3-Agent-Harness-Engineering-提升.md",
+    "Projects/Harness Engineering/Phase-2-Agent-Harness-Engineering-进阶.md",
+    "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
+    "Projects/Harness Engineering/Agent-Harness-Engineering-学习方案.md",
+    "Projects/Harness Engineering/Agent-Harness-Engineering-学习方案 1.md",
+    "Projects/Mirror/Phase/记忆系统完整指南.md",
+    "Projects/Harness Engineering/线束工程学习方案.md",
+    "Projects/Harness Engineering",
     "Projects/Mirror/main_agent_architecture_v3.4.md",
-    "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
+    "Projects/Mirror/OPTIMIZATION_PLAN.md",
+    "Projects/Mirror/PLAN.md",
+    "未命名.md",
+    "Projects/Mirror/Phase/Phase-22-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-21-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-20-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-19-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-18-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-17-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-16-学习笔记.md",
+    "Projects/Mirror/Phase/Phase-15-学习笔记.md",
+    "Projects/Mirror/Phase/phase_18_status.md",
+    "Projects/Mirror/Phase/phase_15_status.md",
+    "Projects/Mirror/Phase/phase_23_status.md",
+    "Projects/Mirror/Phase/phase_22_status.md",
+    "Projects/Mirror/Phase/phase_21_status.md",
     "Projects/Mirror/Phase",
-    "blender/kurtips/查漏补缺.md",
+    "Projects/Mirror",
+    "resource/Pasted image 20260214145156.png",
+    "resource",
     "resource/Pasted image 20260319195808.png",
     "resource/Pasted image 20260319195727.png",
     "resource/Pasted image 20260319195125.png",
     "resource/Pasted image 20260319194700.png",
     "resource/Pasted image 20260319193916.png",
     "resource/Pasted image 20260319193611.png",
+    "Pasted image 20260319193548.png",
+    "Pasted image 20260319193449.png",
+    "blender/kurtips/材质",
     "resource/Pasted image 20260305201011.png",
-    "resource/Pasted image 20260305194821.png",
-    "resource/Pasted image 20260305191114.png",
-    "resource/Pasted image 20260304220546.png",
-    "resource",
-    "blender/kurtips/建模/蘑菇.md",
-    "blender/kurtips/建模/龟背竹.md",
-    "blender/kurtips/建模/藤曼.md",
-    "blender/kurtips/建模/花瓣.md",
-    "blender/kurtips/建模/空心木桩.md",
-    "blender/kurtips/建模/石头.md",
-    "blender/kurtips/建模/树桩.md",
-    "blender/kurtips/建模/树叶.md",
-    "blender/kurtips/建模/小狐狸.md",
     "blender/kurtips/建模",
-    "Projects/Mirror",
-    "blender/kurtips/修改器.md",
-    "blender/kurtips/快捷键.md",
-    "blender/kurtips/建模.md",
-    "Projects/FreeTrader/backend/快速开始.md",
     "blender/kurtips",
     "blender",
-    "计算机图形学",
-    "Unity/目录.md",
-    "Projects/FreeTrader/backend/convert_to_obsidian.py",
-    "新建文件夹"
+    "计算机图形学"
   ]
 }

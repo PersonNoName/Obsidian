@@ -104,12 +104,12 @@ ActionRouter.route()                    → 路由到不同处理分支
 ActionType = Literal["direct_reply", "tool_call", "publish_task", "hitl_relay"]
 ```
 
-| Action | 含义 | 处理 |
-|--------|------|------|
+| Action         | 含义     | 处理                                         |
+| -------------- | ------ | ------------------------------------------ |
 | `direct_reply` | 直接回复用户 | `send_outbound()` + `emit(DIALOGUE_ENDED)` |
-| `tool_call` | 调用工具 | Phase 4 回退为 `direct_reply` |
-| `publish_task` | 发布任务 | `Blackboard.assign()` → 派发给 SubAgent |
-| `hitl_relay` | 等待人工介入 | `send_hitl()` 发送 HITL 请求 |
+| `tool_call`    | 调用工具   | Phase 4 回退为 `direct_reply`                 |
+| `publish_task` | 发布任务   | `Blackboard.assign()` → 派发给 SubAgent       |
+| `hitl_relay`   | 等待人工介入 | `send_hitl()` 发送 HITL 请求                   |
 
 ---
 
