@@ -1,24 +1,20 @@
 {
   "main": {
-    "id": "4795a0f48789a9f7",
+    "id": "192b283818d17a18",
     "type": "split",
     "children": [
       {
-        "id": "447394f1328d194e",
+        "id": "75b968f1f11e9958",
         "type": "tabs",
         "children": [
           {
-            "id": "23762df9e7e0ad65",
+            "id": "a940eb011d4802fb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "main_agent_architecture_v3.4"
+              "title": "新标签页"
             }
           }
         ]
@@ -27,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "2977cbd4daf7f7c6",
+    "id": "ddee4b82ef459ccf",
     "type": "split",
     "children": [
       {
-        "id": "1e21f05f40cd20da",
+        "id": "2eb25b0b87a54cf7",
         "type": "tabs",
         "children": [
           {
-            "id": "6cdfd2f51055e2fa",
+            "id": "f30e3e3329c1dba8",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +44,7 @@
             }
           },
           {
-            "id": "5b612fc4c9c3f6b0",
+            "id": "8795d65561fbf540",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +61,7 @@
             }
           },
           {
-            "id": "46c71d221cd40b04",
+            "id": "6f868fa12acaa2b6",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -75,69 +71,35 @@
             }
           }
         ]
-      },
-      {
-        "id": "913f1694161e89dd",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "effa716c022fff4e",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "Projects/Mirror/main_agent_architecture_v3.4.md",
-                "options": {
-                  "collapse-filter": false,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": true,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": true,
-                  "colorGroups": [],
-                  "collapse-display": true,
-                  "showArrow": false,
-                  "textFadeMultiplier": 0,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1,
-                  "collapse-forces": true,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 1.2414543899482964,
-                  "close": true
-                }
-              },
-              "icon": "lucide-git-fork",
-              "title": "main_agent_architecture_v3.4 的关系图"
-            }
-          }
-        ]
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
   "right": {
-    "id": "17da2483950c5e4a",
+    "id": "0a1a4469e09de7b4",
     "type": "split",
     "children": [
       {
-        "id": "6e5dccea0057a149",
+        "id": "ccb351fbbb621b43",
         "type": "tabs",
         "children": [
           {
-            "id": "0cb8ba75d62b95f9",
+            "id": "a17c79b5cea50bbe",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          },
+          {
+            "id": "1e5c07b6730e3cdc",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2026-01-12.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,25 +109,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "2026-01-12 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
-            "id": "b5a0e4dcf40219cb",
+            "id": "8badb1ce2fc876b1",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2026-01-12.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "2026-01-12 的出链列表"
+              "title": "出链"
             }
           },
           {
-            "id": "3d60b3cd9468dd64",
+            "id": "cef215bd28878a67",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -180,7 +141,7 @@
             }
           },
           {
-            "id": "4710178e438bddb3",
+            "id": "c829a5ebd01fbc9b",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -194,49 +155,27 @@
             }
           },
           {
-            "id": "54e1ec48b74125e1",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
-          },
-          {
-            "id": "b61a4e50e08f255f",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
-            }
-          },
-          {
-            "id": "ec1484edbe7b384e",
+            "id": "1b1b17169d883784",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java/Springboot/SpringBoot Introduction.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "SpringBoot Introduction 的大纲"
+              "title": "大纲"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       },
       {
-        "id": "e0b4f7ab02d7d180",
+        "id": "6c7b92a3d352d112",
         "type": "tabs",
         "children": [
           {
-            "id": "aaadfbebbbacecae",
+            "id": "74e27b8f558b1574",
             "type": "leaf",
             "state": {
               "type": "calendar",
@@ -249,39 +188,26 @@
       }
     ],
     "direction": "horizontal",
-    "width": 325.5
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:新建数据库": false,
+      "workspaces:管理工作区布局": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
-      "workspaces:管理工作区布局": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "23762df9e7e0ad65",
+  "active": "1b1b17169d883784",
   "lastOpenFiles": [
-    "Projects/Mirror/Phase/Phase-4-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-3-学习笔记.md",
-    "blender/kurtips/材质/基础.md",
-    "blender/kurtips/材质/BSDF.md",
-    "blender/kurtips/材质",
-    "Projects/Mirror/Phase/Phase-2-学习笔记.md",
-    "Projects/Mirror/Phase/phase_3_status.md",
-    "Projects/Mirror/PLAN.md",
-    "Projects/Mirror/Phase/Phase-1-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-0-学习笔记.md",
-    "Projects/Mirror/main_agent_architecture_v3.4.md",
-    "Projects/Mirror/main_agent_architecture_v3.1_simplified.md",
-    "Projects/Mirror/Phase",
-    "blender/kurtips/查漏补缺.md",
+    "tmpclaude-e566-cwd",
     "resource/Pasted image 20260319195808.png",
     "resource/Pasted image 20260319195727.png",
     "resource/Pasted image 20260319195125.png",
@@ -293,26 +219,39 @@
     "resource/Pasted image 20260305191114.png",
     "resource/Pasted image 20260304220546.png",
     "resource",
-    "blender/kurtips/建模/蘑菇.md",
+    "python-notes/Python3基础笔记.md",
+    "python-notes",
+    "blender/kurtips/材质/基础.md",
+    "blender/kurtips/材质/BSDF.md",
     "blender/kurtips/建模/龟背竹.md",
+    "blender/kurtips/建模/蘑菇.md",
     "blender/kurtips/建模/藤曼.md",
     "blender/kurtips/建模/花瓣.md",
     "blender/kurtips/建模/空心木桩.md",
     "blender/kurtips/建模/石头.md",
-    "blender/kurtips/建模/树桩.md",
     "blender/kurtips/建模/树叶.md",
+    "blender/kurtips/建模/树桩.md",
     "blender/kurtips/建模/小狐狸.md",
-    "blender/kurtips/建模",
-    "Projects/Mirror",
-    "blender/kurtips/修改器.md",
+    "blender/kurtips/父子级.md",
+    "blender/kurtips/查漏补缺.md",
+    "blender/kurtips/材质",
+    "blender/kurtips/曲线.md",
+    "blender/kurtips/插件.md",
     "blender/kurtips/快捷键.md",
     "blender/kurtips/建模.md",
-    "Projects/FreeTrader/backend/快速开始.md",
+    "blender/kurtips/建模",
+    "blender/kurtips/修改器.md",
     "blender/kurtips",
     "blender",
-    "计算机图形学",
-    "Unity/目录.md",
-    "Projects/FreeTrader/backend/convert_to_obsidian.py",
-    "新建文件夹"
+    "Unity/07-实战流程与资源库/项目实战规范/项目实战规范 MOC.md",
+    "Unity/07-实战流程与资源库/项目实战规范/目标设备真机测试流程.md",
+    "Unity/07-实战流程与资源库/项目实战规范/白模原型 (Prototyping) 验证阶段.md",
+    "Unity/07-实战流程与资源库/项目实战规范/版本控制提交规范.md",
+    "Unity/07-实战流程与资源库/项目实战规范/核心系统数据流向设计.md",
+    "Unity/07-实战流程与资源库/项目实战规范/标准目录结构 (Scripts Art Prefabs).md",
+    "Unity/07-实战流程与资源库/项目实战规范",
+    "Unity/07-实战流程与资源库/精选权威学习资源",
+    "Unity/07-实战流程与资源库/团队协作技巧",
+    "Unity/06-工程化与性能优化/调试与问题排查"
   ]
 }
