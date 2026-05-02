@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
+                "file": "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Phase-1-Agent-Harness-Engineering-入门"
+              "title": "openai-agents-python-源码精读"
             }
           }
         ]
@@ -227,6 +227,8 @@
   },
   "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
+    "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
+    "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
     "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
     "Projects/Harness Engineering/Phase1/week3/learning_guide.md",
     "Projects/Mirror/main_agent_architecture_v3.4.md",
@@ -238,7 +240,6 @@
     "Projects/Harness Engineering/Phase1/week2",
     "Projects/Mirror/PLAN.md",
     "Projects/Harness Engineering/Agent-Harness-Engineering-学习方案.md",
-    "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
     "conflict-files-obsidian-git.md",
     "未命名.md",
     "Projects/Mirror/Phase/记忆系统完整指南.md",
@@ -257,7 +258,6 @@
     "Projects/Mirror/Phase/Phase-15-学习笔记.md",
     "Projects/Mirror/Phase/Phase-14-学习笔记.md",
     "Projects/Mirror/Phase/Phase-13-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-12-学习笔记.md",
     "Projects/Harness Engineering/Phase1",
     "Projects/Harness Engineering",
     "tmpclaude-e566-cwd",
