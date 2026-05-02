@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
+                "file": "Projects/Harness Engineering/Phase1/week3/04-tracing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "openai-agents-python-源码精读"
+              "title": "04-tracing"
             }
           }
         ]
@@ -227,10 +227,15 @@
   },
   "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
+    "Projects/Harness Engineering/Phase1/week3/03-guardrails.md",
+    "Projects/Harness Engineering/Phase1/week3/02-tool-calling.md",
+    "Projects/Harness Engineering/Phase1/week3/01-agent-loop.md",
+    "Projects/Harness Engineering/Phase1/week3/01-agent-loop 1.md",
     "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
+    "Projects/Harness Engineering/Phase1/week3/04-tracing.md",
     "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
-    "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
     "Projects/Harness Engineering/Phase1/week3/learning_guide.md",
+    "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
     "Projects/Mirror/main_agent_architecture_v3.4.md",
     "Projects/Harness Engineering/Phase2/week5",
     "Projects/Harness Engineering/Phase2/week4",
@@ -253,11 +258,6 @@
     "Projects/Mirror/Phase/Phase-20-学习笔记.md",
     "Projects/Mirror/Phase/Phase-19-学习笔记.md",
     "Projects/Mirror/Phase/Phase-18-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-17-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-16-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-15-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-14-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-13-学习笔记.md",
     "Projects/Harness Engineering/Phase1",
     "Projects/Harness Engineering",
     "tmpclaude-e566-cwd",

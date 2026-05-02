@@ -359,13 +359,13 @@ graph TD
 
 ### 项目 1：OpenAI Agents SDK
 
-| 维度 | 内容 |
-|------|------|
-| **仓库** | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) |
-| **推荐理由** | Phase 1 最佳参考。官方实现了最小化的 agent loop + tool calling + guardrails + tracing，代码量小（~5k LOC），结构清晰 |
+| 维度         | 内容                                                                                                                                                                                                        |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **仓库**     | [openai/openai-agents-python](https://github.com/openai/openai-agents-python)                                                                                                                             |
+| **推荐理由**   | Phase 1 最佳参考。官方实现了最小化的 agent loop + tool calling + guardrails + tracing，代码量小（~5k LOC），结构清晰                                                                                                                |
 | **阅读重点模块** | ① `src/agents/agent_loop.py` — 核心 execution loop<br>② `src/agents/tool.py` — tool 抽象与调用<br>③ `src/agents/guardrail.py` — guardrail 钩子（Phase 1 了解即可）<br>④ `src/agents/tracing/` — tracing 实现（Phase 1 了解即可） |
-| **阅读策略** | Week 2 精读 agent_loop + tool；Week 3 精读 guardrail + tracing |
-| **学完获得能力** | 理解工业级 minimal agent harness 的代码结构；能对比自己实现的差距 |
+| **阅读策略**   | Week 2 精读 agent_loop + tool；Week 3 精读 guardrail + tracing                                                                                                                                                 |
+| **学完获得能力** | 理解工业级 minimal agent harness 的代码结构；能对比自己实现的差距                                                                                                                                                              |
 
 ### 项目 2：Pydantic AI
 
