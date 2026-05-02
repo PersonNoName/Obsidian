@@ -215,14 +215,14 @@ def _load_simple_yaml(path: Path) -> dict[str, Any]:
 
 **解析器支持的语法子集**：
 
-| YAML 语法 | 示例 | 解析结果 |
-|-----------|------|---------|
-| 简单键值 | `max_steps: 20` | `{"max_steps": 20}` |
-| 布尔值 | `llm_max_retries: 2` | `{"llm_max_retries": 2}` |
-| 浮点数 | `stream_temperature: 0.2` | `{"stream_temperature": 0.2}` |
-| 空字符串 | `model: ""` | `{"model": ""}` |
-| 字面量块 | `system_prompt: \|` | 多行合并为单行 |
-| 注释 | `# 这是注释` | 忽略 |
+| YAML 语法 | 示例                        | 解析结果                          |
+| ------- | ------------------------- | ----------------------------- |
+| 简单键值    | `max_steps: 20`           | `{"max_steps": 20}`           |
+| 布尔值     | `llm_max_retries: 2`      | `{"llm_max_retries": 2}`      |
+| 浮点数     | `stream_temperature: 0.2` | `{"stream_temperature": 0.2}` |
+| 空字符串    | `model: ""`               | `{"model": ""}`               |
+| 字面量块    | `system_prompt: \|`       | 多行合并为单行                       |
+| 注释      | `# 这是注释`                  | 忽略                            |
 
 **类型推断 `_parse_scalar()`**：
 
