@@ -29,11 +29,12 @@
 
 Week 3 是 Phase 1 的**收官周**。核心任务不是写新的 agent 能力，而是为 Week 2 的 Minimal Agent Loop 加上三项**工程化基础设施**：
 
-| 升级项 | Week 2 状态 | Week 3 目标 |
-|--------|------------|------------|
-| 配置管理 | 硬编码在 `AgentConfig.from_env()` | YAML 文件驱动，修改配置无需改代码 |
-| 运行日志 | `print(f"[Step {n}] action=...")` | 结构化 `StepLogger`，含耗时、token 数 |
-| LLM 输出 | 仅 `chat()` 同步调用 | 新增 `stream_chat()` 流式输出 |
+| 升级项    | Week 2 状态                         | Week 3 目标                    |
+| ------ | --------------------------------- | ---------------------------- |
+| 配置管理   | 硬编码在 `AgentConfig.from_env()`     | YAML 文件驱动，修改配置无需改代码          |
+| 运行日志   | `print(f"[Step {n}] action=...")` | 结构化 `StepLogger`，含耗时、token 数 |
+| LLM 输出 | 仅 `chat()` 同步调用                   | 新增 `stream_chat()` 流式输出      |
+|        |                                   |                              |
 
 **核心理念**：Week 2 证明了 agent loop **能跑**；Week 3 让它**可观测、可配置、可演示**。这三样东西是从 demo 走向工程的第 0 步。
 
