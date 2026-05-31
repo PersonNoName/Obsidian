@@ -74,11 +74,11 @@ Phase 2 产出的 agent 已具备工具+记忆+规划能力，但缺乏：
 
 ### 项目目标
 
-| # | 目标 |
-|---|------|
-| P1 | 完成 **Tool Orchestration + Memory Agent** 项目（在 Phase 1 代码基础上升级） |
-| P2 | 实现一个可工作的 MCP Server（如 local filesystem） |
-| P3 | 产出 tool orchestration 架构图 + memory 分层架构图 |
+| #   | 目标                                                             |
+| --- | -------------------------------------------------------------- |
+| P1  | 完成 **Tool Orchestration + Memory Agent** 项目（在 Phase 1 代码基础上升级） |
+| P2  | 实现一个可工作的 MCP Server（如 local filesystem）                        |
+| P3  | 产出 tool orchestration 架构图 + memory 分层架构图                       |
 
 ---
 

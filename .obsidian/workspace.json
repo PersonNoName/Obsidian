@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Harness Engineering/Phase1/week3/04-tracing.md",
-                "mode": "source",
+                "file": "Projects/pi/ai/README.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04-tracing"
+              "title": "README"
             }
           }
         ]
@@ -227,15 +227,26 @@
   },
   "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
-    "Projects/Harness Engineering/Phase1/week3/03-guardrails.md",
+    "Projects/pi/ai/01-overview-and-call-flow.md",
+    "Projects/Harness Engineering/Phase2/week5/learning_guide.md",
+    "Projects/pi/ai",
+    "Projects/pi/ai/README.md",
+    "Projects/pi/ai/06-tests-notes-and-study-plan.md",
+    "Projects/pi/ai/05-images-oauth-and-runtime.md",
+    "Projects/pi/ai/04-provider-adapter-pattern.md",
+    "Projects/pi/ai/03-model-registry-and-generated-data.md",
+    "Projects/pi/ai/02-types-and-event-protocol.md",
+    "Projects/pi",
+    "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
+    "Projects/Harness Engineering/Phase-2-Agent-Harness-Engineering-进阶.md",
     "Projects/Harness Engineering/Phase1/week3/02-tool-calling.md",
     "Projects/Harness Engineering/Phase1/week3/01-agent-loop.md",
-    "Projects/Harness Engineering/Phase1/week3/01-agent-loop 1.md",
     "Projects/Harness Engineering/Phase-1-Agent-Harness-Engineering-入门.md",
     "Projects/Harness Engineering/Phase1/week3/04-tracing.md",
+    "Projects/Harness Engineering/Phase1/week3/03-guardrails.md",
+    "Projects/Harness Engineering/Phase1/week3/01-agent-loop 1.md",
     "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
     "Projects/Harness Engineering/Phase1/week3/learning_guide.md",
-    "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
     "Projects/Mirror/main_agent_architecture_v3.4.md",
     "Projects/Harness Engineering/Phase2/week5",
     "Projects/Harness Engineering/Phase2/week4",
@@ -248,16 +259,6 @@
     "conflict-files-obsidian-git.md",
     "未命名.md",
     "Projects/Mirror/Phase/记忆系统完整指南.md",
-    "Projects/Mirror/Phase/Phase-9-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-8-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-7-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-6-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-5-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-22-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-21-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-20-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-19-学习笔记.md",
-    "Projects/Mirror/Phase/Phase-18-学习笔记.md",
     "Projects/Harness Engineering/Phase1",
     "Projects/Harness Engineering",
     "tmpclaude-e566-cwd",
@@ -270,8 +271,6 @@
     "resource/Pasted image 20260305201011.png",
     "resource/Pasted image 20260305194821.png",
     "resource/Pasted image 20260305191114.png",
-    "resource/Pasted image 20260304220546.png",
-    "resource",
-    "python-notes"
+    "resource/Pasted image 20260304220546.png"
   ]
 }

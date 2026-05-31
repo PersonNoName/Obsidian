@@ -215,13 +215,14 @@ class BaseTool(ABC):
 
 #### registry 提供的 5 个核心能力
 
-| 方法 | 作用 |
-|------|------|
-| `register(tool)` | 注册工具，并在写入前做 schema 校验 |
-| `unregister(name)` | 移除一个已注册工具 |
-| `get(name)` | 按名称获取工具 |
-| `list_all()` | 返回全部工具实例 |
-| `search(query, limit)` | 按名称、描述、分类、标签做简单关键词检索 |
+| 方法                     | 作用                    |
+| ---------------------- | --------------------- |
+| `register(tool)`       | 注册工具，并在写入前做 schema 校验 |
+| `unregister(name)`     | 移除一个已注册工具             |
+| `get(name)`            | 按名称获取工具               |
+| `list_all()`           | 返回全部工具实例              |
+| `search(query, limit)` | 按名称、描述、分类、标签做简单关键词检索  |
+
 
 此外还有一个非常适合 UI、日志和调试的接口：
 
