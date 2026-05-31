@@ -16,6 +16,8 @@
    理解图片生成支线、OAuth、环境变量与运行时兼容层。
 6. [06-tests-notes-and-study-plan.md](06-tests-notes-and-study-plan.md)
    用测试文件反推实现，并按 5 天路线安排学习节奏。
+7. [07-file-map-and-relationships.md](07-file-map-and-relationships.md)
+   按文件整理 `packages/ai/src` 的职责、依赖关系和关键源码片段。
 
 ## 先记住 5 层结构
 
