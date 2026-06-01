@@ -18,6 +18,8 @@
    用测试反推行为契约，并给出一条实际可执行的学习路线。
 7. [07-file-map-and-relationships.md](07-file-map-and-relationships.md)
    按文件整理 `packages/agent/src` 的职责、依赖关系和最值得先读的入口。
+8. [08-agent-ts-deep-dive.md](08-agent-ts-deep-dive.md)
+   对 `packages/agent/src/agent.ts` 做逐函数、逐参数、逐依赖关系的精读。
 
 ## 先记住 4 层结构
 
