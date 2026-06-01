@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/pi/ai/02-types-and-event-protocol.md",
+                "file": "Projects/pi/agent/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02-types-and-event-protocol"
+              "title": "README"
             }
           }
         ]
@@ -227,6 +227,16 @@
   },
   "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
+    "Projects/pi/ai/02-types-and-event-protocol.md",
+    "Projects/pi/agent/README.md",
+    "Projects/pi/agent/07-file-map-and-relationships.md",
+    "Projects/pi/agent/06-tests-notes-and-study-plan.md",
+    "Projects/pi/agent/05-session-compaction-and-hooks.md",
+    "Projects/pi/agent/04-harness-architecture.md",
+    "Projects/pi/agent/03-tool-calls-and-turn-control.md",
+    "Projects/pi/agent/02-state-messages-and-events.md",
+    "Projects/pi/agent/01-overview-and-main-loop.md",
+    "Projects/pi/agent",
     "Projects/pi/ai/01-overview-and-call-flow.md",
     "Projects/pi/ai/07-file-map-and-relationships.md",
     "Projects/pi/ai/README.md",
@@ -234,7 +244,6 @@
     "Projects/pi/ai/05-images-oauth-and-runtime.md",
     "Projects/pi/ai/04-provider-adapter-pattern.md",
     "Projects/pi/ai/03-model-registry-and-generated-data.md",
-    "Projects/pi/ai/02-types-and-event-protocol.md",
     "Projects/Harness Engineering/Phase2/week5/learning_guide.md",
     "Projects/pi/ai",
     "Projects/pi",
@@ -247,22 +256,13 @@
     "Projects/Harness Engineering/Phase1/week3/03-guardrails.md",
     "Projects/Harness Engineering/Phase1/week3/01-agent-loop 1.md",
     "Projects/Harness Engineering/Phase1/week3/openai-agents-python-源码精读.md",
-    "Projects/Harness Engineering/Phase1/week3/learning_guide.md",
-    "Projects/Mirror/main_agent_architecture_v3.4.md",
     "Projects/Harness Engineering/Phase2/week5",
     "Projects/Harness Engineering/Phase2/week4",
-    "未命名 1.md",
     "Projects/Harness Engineering/Phase2",
     "Projects/Harness Engineering/Phase1/week3",
     "Projects/Harness Engineering/Phase1/week2",
-    "Projects/Mirror/PLAN.md",
-    "Projects/Harness Engineering/Agent-Harness-Engineering-学习方案.md",
-    "conflict-files-obsidian-git.md",
-    "未命名.md",
-    "Projects/Mirror/Phase/记忆系统完整指南.md",
     "Projects/Harness Engineering/Phase1",
     "Projects/Harness Engineering",
-    "tmpclaude-e566-cwd",
     "resource/Pasted image 20260319195808.png",
     "resource/Pasted image 20260319195727.png",
     "resource/Pasted image 20260319195125.png",
