@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/pi/agent/agent-loop-notes.md",
+                "file": "Projects/pi/agent/09-agent-function-flow-map.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "agent-loop-notes"
+              "title": "09-agent-function-flow-map"
             }
           }
         ]
@@ -227,8 +227,9 @@
   },
   "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
-    "Projects/pi/agent/agent-deep-dive-report.md",
     "Projects/pi/agent/agent-loop-notes.md",
+    "Projects/pi/agent/09-agent-function-flow-map.md",
+    "Projects/pi/agent/agent-deep-dive-report.md",
     "Projects/pi/agent/08-agent-ts-deep-dive.md",
     "Projects/pi/agent/01-overview-and-main-loop.md",
     "Projects/pi/agent/README.md",
@@ -253,7 +254,6 @@
     "Projects/pi/ai/05-images-oauth-and-runtime.md",
     "Projects/pi/ai/04-provider-adapter-pattern.md",
     "Projects/pi/ai/03-model-registry-and-generated-data.md",
-    "Projects/Harness Engineering/Phase2/week5/learning_guide.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",
