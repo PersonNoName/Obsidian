@@ -4,16 +4,30 @@
     "type": "split",
     "children": [
       {
-        "id": "1097102ee9f22003",
+        "id": "bc25a687683107cf",
         "type": "tabs",
         "children": [
           {
-            "id": "128a11f0de0eff5e",
+            "id": "5abb070992b6b0d9",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/pi/agent/08-agent-ts-deep-dive.md",
+                "file": "Projects/PI/agent/08-agent-ts-deep-dive.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "08-agent-ts-deep-dive"
+            }
+          },
+          {
+            "id": "f31491608c9abd94",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Projects/PI/agent/08-agent-ts-deep-dive.md",
                 "mode": "source",
                 "source": false
               },
@@ -21,7 +35,8 @@
               "title": "08-agent-ts-deep-dive"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -212,6 +227,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
       "workspaces:管理工作区布局": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
@@ -221,29 +237,31 @@
       "command-palette:打开命令面板": false,
       "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
-      "templater-obsidian:Templater": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "templater-obsidian:Templater": false
     }
   },
-  "active": "128a11f0de0eff5e",
+  "active": "f30e3e3329c1dba8",
   "lastOpenFiles": [
-    "Projects/pi/agent/01-overview-and-main-loop.md",
-    "Projects/pi/agent/README.md",
-    "Projects/pi/agent/08-agent-ts-deep-dive.md",
-    "Projects/pi/agent/07-file-map-and-relationships.md",
-    "Projects/pi/agent/06-tests-notes-and-study-plan.md",
-    "Projects/pi/agent/05-session-compaction-and-hooks.md",
-    "Projects/pi/agent/04-harness-architecture.md",
-    "Projects/pi/agent/03-tool-calls-and-turn-control.md",
-    "Projects/pi/agent/02-state-messages-and-events.md",
-    "Projects/pi/agent/README 1.md",
-    "Projects/pi/agent/07-file-map-and-relationships 1.md",
-    "Projects/pi/agent/04-harness-architecture 1.md",
-    "Projects/pi/agent/03-tool-calls-and-turn-control 1.md",
-    "Projects/pi/agent/02-state-messages-and-events 1.md",
-    "Projects/pi/agent/01-overview-and-main-loop 1.md",
-    "Projects/pi/ai/02-types-and-event-protocol.md",
-    "Projects/pi/agent",
+    "Projects/PI/agent/agent-deep-dive-report.md",
+    "Projects/PI/agent/08-agent-ts-deep-dive.md",
+    "Projects/PI/agent/01-overview-and-main-loop.md",
+    "Projects/PI/agent/README.md",
+    "Projects/PI/agent/07-file-map-and-relationships.md",
+    "Projects/PI/agent/06-tests-notes-and-study-plan.md",
+    "Projects/PI/agent/05-session-compaction-and-hooks.md",
+    "Projects/PI/agent/04-harness-architecture.md",
+    "Projects/PI/agent/02-state-messages-and-events.md",
+    "Projects/PI/agent/03-tool-calls-and-turn-control.md",
+    "Projects/PI/agent",
+    "Projects/PI/agent/README-CN.md",
+    "Projects/PI/ai/07-file-map-and-relationships.md",
+    "Projects/PI/ai/06-tests-notes-and-study-plan.md",
+    "Projects/PI/ai/05-images-oauth-and-runtime.md",
+    "Projects/PI/ai/04-provider-adapter-pattern.md",
+    "Projects/PI/ai/03-model-registry-and-generated-data.md",
+    "Projects/PI/ai/02-types-and-event-protocol.md",
+    "Projects/PI/ai/01-overview-and-call-flow.md",
+    "Unity/目录.md",
     "Projects/pi/ai/01-overview-and-call-flow.md",
     "Projects/pi/ai/07-file-map-and-relationships.md",
     "Projects/pi/ai/README.md",
@@ -251,11 +269,8 @@
     "Projects/pi/ai/05-images-oauth-and-runtime.md",
     "Projects/pi/ai/04-provider-adapter-pattern.md",
     "Projects/pi/ai/03-model-registry-and-generated-data.md",
-    "Projects/Harness Engineering/Phase2/week5/learning_guide.md",
     "Projects/pi/ai",
     "Projects/pi",
-    "Projects/Harness Engineering/Phase2/week4/learning_guide.md",
-    "Projects/Harness Engineering/Phase-2-Agent-Harness-Engineering-进阶.md",
     "Projects/Harness Engineering/Phase2/week5",
     "Projects/Harness Engineering/Phase2/week4",
     "Projects/Harness Engineering/Phase2",
