@@ -225,11 +225,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "128a11f0de0eff5e",
+  "active": "f30e3e3329c1dba8",
   "lastOpenFiles": [
     "Projects/pi/agent/agent-loop-notes.md",
-    "Projects/pi/agent/09-agent-function-flow-map.md",
     "Projects/pi/agent/agent-deep-dive-report.md",
+    "Projects/pi/agent/09-agent-function-flow-map.md",
+    "Projects/pi/agent/agent-loop-source-reading.md",
     "Projects/pi/agent/08-agent-ts-deep-dive.md",
     "Projects/pi/agent/01-overview-and-main-loop.md",
     "Projects/pi/agent/README.md",
@@ -253,7 +254,6 @@
     "Projects/pi/ai/06-tests-notes-and-study-plan.md",
     "Projects/pi/ai/05-images-oauth-and-runtime.md",
     "Projects/pi/ai/04-provider-adapter-pattern.md",
-    "Projects/pi/ai/03-model-registry-and-generated-data.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",
