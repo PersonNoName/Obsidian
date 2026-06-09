@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/pi/agent/09-agent-function-flow-map.md",
+                "file": "Projects/pi/agent/agent-loop-notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "09-agent-function-flow-map"
+              "title": "agent-loop-notes"
             }
           }
         ]
@@ -225,20 +225,23 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "f30e3e3329c1dba8",
+  "active": "128a11f0de0eff5e",
   "lastOpenFiles": [
+    "Projects/pi/agent/agent-loop-source-reading.md",
     "Projects/pi/agent/agent-loop-notes.md",
+    "Projects/pi/agent/harness/agent-harness-study-guide.zh-CN.md",
+    "Projects/pi/agent/harness/harness-learning-guide.md",
+    "Projects/pi/agent/06-tests-notes-and-study-plan.md",
+    "Projects/pi/agent/04-harness-architecture.md",
+    "Projects/pi/agent/harness",
+    "Projects/pi/agent/03-tool-calls-and-turn-control.md",
+    "Projects/pi/agent/README.md",
+    "Projects/pi/agent/01-overview-and-main-loop.md",
     "Projects/pi/agent/agent-deep-dive-report.md",
     "Projects/pi/agent/09-agent-function-flow-map.md",
-    "Projects/pi/agent/agent-loop-source-reading.md",
     "Projects/pi/agent/08-agent-ts-deep-dive.md",
-    "Projects/pi/agent/01-overview-and-main-loop.md",
-    "Projects/pi/agent/README.md",
     "Projects/pi/agent/07-file-map-and-relationships.md",
-    "Projects/pi/agent/06-tests-notes-and-study-plan.md",
     "Projects/pi/agent/05-session-compaction-and-hooks.md",
-    "Projects/pi/agent/04-harness-architecture.md",
-    "Projects/pi/agent/03-tool-calls-and-turn-control.md",
     "Projects/pi/agent/02-state-messages-and-events.md",
     "Projects/pi/agent/README 1.md",
     "Projects/pi/agent/07-file-map-and-relationships 1.md",
@@ -252,8 +255,6 @@
     "Projects/pi/ai/07-file-map-and-relationships.md",
     "Projects/pi/ai/README.md",
     "Projects/pi/ai/06-tests-notes-and-study-plan.md",
-    "Projects/pi/ai/05-images-oauth-and-runtime.md",
-    "Projects/pi/ai/04-provider-adapter-pattern.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",
@@ -262,7 +263,6 @@
     "Projects/Harness Engineering/Phase1/week3",
     "Projects/Harness Engineering/Phase1/week2",
     "Projects/Harness Engineering/Phase1",
-    "Projects/Harness Engineering",
     "resource/Pasted image 20260319195808.png",
     "resource/Pasted image 20260319195727.png",
     "resource/Pasted image 20260319195125.png",
