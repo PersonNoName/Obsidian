@@ -40,7 +40,7 @@ flowchart TB
     Loop[runAgentLoop\n低层 Agent 循环]
     StreamFn[createStreamFn\nProvider 请求包装]
     Provider[streamSimple + Model Provider\nLLM API]
-    Tools[AgentTool[]\n本地/应用工具]
+    Tools[AgentTool\n本地/应用工具]
     Hooks[Hooks / Subscribers\non + subscribe]
     Compaction[Compaction / Branch Summary]
 
@@ -1099,7 +1099,7 @@ sequenceDiagram
     participant AH as AgentHarness
     participant Session as Session
     participant Hook as Hooks
-    participant Loop as runAgentLoop
+    participant AgentLoop as runAgentLoop
     participant LLM as streamSimple/Provider
     participant Tool as AgentTool
 
@@ -1112,50 +1112,50 @@ sequenceDiagram
     AH->>AH: executeTurn()
     AH->>Hook: before_agent_start
     Hook-->>AH: optional messages/systemPrompt
-    AH->>Loop: runAgentLoop(prompts, context, config, emit, signal, streamFn)
+    AH->>AgentLoop: runAgentLoop(prompts, context, config, emit, signal, streamFn)
 
-    Loop->>AH: agent_start / turn_start / user message events
+    AgentLoop->>AH: agent_start / turn_start / user message events
     AH->>User: subscribe events
 
-    Loop->>AH: streamFn(model, llmContext, streamOptions)
+    AgentLoop->>AH: streamFn(model, llmContext, streamOptions)
     AH->>Hook: before_provider_request
     Hook-->>AH: streamOptions patch
     AH->>LLM: streamSimple(model, context, options)
     LLM-->>AH: response stream
     AH->>Hook: before_provider_payload / after_provider_response
-    AH-->>Loop: assistant stream
+    AH-->>AgentLoop: assistant stream
 
-    Loop->>AH: message_start/update/end
+    AgentLoop->>AH: message_start/update/end
     AH->>Session: append assistant message on message_end
     AH->>User: message events
 
     alt assistant has tool calls
-        Loop->>Hook: tool_call
-        Hook-->>Loop: allow/block
-        Loop->>Tool: execute(toolCallId, args, signal, onUpdate)
-        Tool-->>Loop: AgentToolResult
-        Loop->>Hook: tool_result
-        Hook-->>Loop: optional result patch
-        Loop->>AH: tool_execution_* + toolResult message events
+        AgentLoop->>Hook: tool_call
+        Hook-->>AgentLoop: allow/block
+        AgentLoop->>Tool: execute(toolCallId, args, signal, onUpdate)
+        Tool-->>AgentLoop: AgentToolResult
+        AgentLoop->>Hook: tool_result
+        Hook-->>AgentLoop: optional result patch
+        AgentLoop->>AH: tool_execution_* + toolResult message events
         AH->>Session: append toolResult message on message_end
     end
 
-    Loop->>AH: turn_end
+    AgentLoop->>AH: turn_end
     AH->>Hook: subscribers see turn_end
     AH->>Session: flushPendingSessionWrites()
     AH->>User: save_point
     AH->>Session: create next turn snapshot if continuing
 
     alt steer queue has messages
-        Loop->>AH: getSteeringMessages()
-        AH-->>Loop: queued steer messages
-        Loop->>LLM: next provider request
+        AgentLoop->>AH: getSteeringMessages()
+        AH-->>AgentLoop: queued steer messages
+        AgentLoop->>LLM: next provider request
     else no steer and no tool calls
-        Loop->>AH: getFollowUpMessages()
-        AH-->>Loop: queued follow-up or []
+        AgentLoop->>AH: getFollowUpMessages()
+        AH-->>AgentLoop: queued follow-up or []
     end
 
-    Loop->>AH: agent_end
+    AgentLoop->>AH: agent_end
     AH->>Session: flushPendingSessionWrites()
     AH->>AH: phase=idle
     AH->>User: agent_end + settled
