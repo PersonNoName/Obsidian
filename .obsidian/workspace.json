@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/PI/agent/harness/agent-harness-study-guide.zh-CN.md",
+                "file": "Projects/PI/agent/harness/agent-harness-study-cn.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "agent-harness-study-guide.zh-CN"
+              "title": "agent-harness-study-cn"
             }
           },
           {
@@ -242,6 +242,7 @@
   "active": "f31491608c9abd94",
   "lastOpenFiles": [
     "Projects/PI/agent/harness/agent-harness.md",
+    "Projects/PI/agent/harness/agent-harness-study-cn.md",
     "Projects/PI/agent/harness/agent-harness-study-guide.zh-CN.md",
     "Projects/PI/agent/harness/harness-learning-guide.md",
     "Projects/PI/agent/08-agent-ts-deep-dive.md",
@@ -268,7 +269,6 @@
     "Projects/PI/ai/02-types-and-event-protocol.md",
     "Projects/PI/ai/01-overview-and-call-flow.md",
     "Unity/目录.md",
-    "Projects/pi/ai/01-overview-and-call-flow.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",

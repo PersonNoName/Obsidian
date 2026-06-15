@@ -19,7 +19,7 @@ flowchart TB
 
     subgraph Harness["AgentHarness（顶层外壳）"]
         direction TB
-        Phase[Phase 状态机<br/>idle | turn | compaction<br/>| branch_summary | retry]
+        Phase[Phase 状态机<br/>idle、turn、compaction<br/>branch_summary、retry]
         Queues[消息队列<br/>steerQueue / followUpQueue / nextTurnQueue]
         Hooks[Hook 系统<br/>handlers + subscribe + on]
         Pending[pendingSessionWrites<br/>turn 内延迟写入]
