@@ -819,7 +819,7 @@ sequenceDiagram
     participant Public as prompt/skill/template
     participant AH as AgentHarness.executeTurn
     participant Hook as before_agent_start hook
-    participant Loop as runAgentLoop
+    participant AgentLoop as runAgentLoop
     participant Provider as streamSimple/provider
     participant Tool as AgentTool.execute
     participant Session as Session
@@ -830,16 +830,16 @@ sequenceDiagram
     AH->>AH: prepend nextTurnQueue if any
     AH->>Hook: before_agent_start
     Hook-->>AH: optional messages/systemPrompt
-    AH->>Loop: runAgentLoop(messages, context, config, emit, signal, streamFn)
-    Loop->>Sub: agent_start / turn_start / message events
-    Loop->>Provider: stream assistant response
-    Provider-->>Loop: streaming events + final assistant message
-    Loop->>Tool: execute tool calls if any
-    Tool-->>Loop: tool results
-    Loop->>AH: events via handleAgentEvent
+    AH->>AgentLoop: runAgentLoop(messages, context, config, emit, signal, streamFn)
+    AgentLoop->>Sub: agent_start / turn_start / message events
+    AgentLoop->>Provider: stream assistant response
+    Provider-->>AgentLoop: streaming events + final assistant message
+    AgentLoop->>Tool: execute tool calls if any
+    Tool-->>AgentLoop: tool results
+    AgentLoop->>AH: events via handleAgentEvent
     AH->>Session: append messages / flush pending writes
     AH->>Sub: emit events
-    Loop-->>AH: newMessages
+    AgentLoop-->>AH: newMessages
     AH-->>Public: last assistant message
 ```
 

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/PI/agent/harness/agent-harness-v2.md",
+                "file": "Projects/PI/agent/harness/agent-harness-学习笔记-glm-5.2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "agent-harness-v2"
+              "title": "agent-harness-学习笔记-glm-5.2"
             }
           }
         ]
@@ -228,10 +228,11 @@
   },
   "active": "f31491608c9abd94",
   "lastOpenFiles": [
-    "Projects/PI/agent/harness/AgentHarness-学习笔记.md",
-    "Projects/PI/agent/harness/agent-harness-v2.md",
-    "Projects/PI/agent/harness/agent-harness.md",
     "Projects/PI/agent/harness/agent-harness-study-cn.md",
+    "Projects/PI/agent/harness/agent-harness-学习笔记-glm-5.2.md",
+    "Projects/PI/agent/harness/agent-harness.md",
+    "Projects/PI/agent/harness/agent-harness-v2.md",
+    "Projects/PI/agent/harness/AgentHarness-学习笔记.md",
     "Projects/PI/agent/harness/agent-harness-study-guide.zh-CN.md",
     "Projects/PI/agent/harness/harness-learning-guide.md",
     "Projects/PI/agent/08-agent-ts-deep-dive.md",
@@ -255,7 +256,6 @@
     "Projects/PI/ai/05-images-oauth-and-runtime.md",
     "Projects/PI/ai/04-provider-adapter-pattern.md",
     "Projects/PI/ai/03-model-registry-and-generated-data.md",
-    "Projects/PI/ai/02-types-and-event-protocol.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",

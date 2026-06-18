@@ -405,13 +405,13 @@ private createLoopConfig(getTurnState, setTurnState): AgentLoopConfig
 
 返回一个 `AgentLoopConfig`，在低层 loop 的每个关键点注入 hook：
 
-| Loop 钩子 | Hook 类型 | 行为 |
-|---|---|---|
-| `transformContext(messages)` | `context` | 让 hook 改 LLM 看到的 messages |
-| `beforeToolCall` | `tool_call` | 拦截/允许 |
-| `afterToolCall` | `tool_result` | 修改/终止 |
-| `prepareNextTurn` | (无 hook) | 刷 pending writes → 创建新 snapshot → 设 setTurnState |
-| `getSteeringMessages` / `getFollowUpMessages` | (无) | 把 `steerQueue` / `followUpQueue` drain 给 loop |
+| Loop 钩子                                       | Hook 类型       | 行为                                               |
+| --------------------------------------------- | ------------- | ------------------------------------------------ |
+| `transformContext(messages)`                  | `context`     | 让 hook 改 LLM 看到的 messages                        |
+| `beforeToolCall`                              | `tool_call`   | 拦截/允许                                            |
+| `afterToolCall`                               | `tool_result` | 修改/终止                                            |
+| `prepareNextTurn`                             | (无 hook)      | 刷 pending writes → 创建新 snapshot → 设 setTurnState |
+| `getSteeringMessages` / `getFollowUpMessages` | (无)           | 把 `steerQueue` / `followUpQueue` drain 给 loop    |
 
 ### 6.6 写入排队 + 刷盘
 
