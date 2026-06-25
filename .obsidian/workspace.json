@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Projects/PI/agent/harness/agent-harness-学习笔记-glm-5.2.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -94,8 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "0a1a4469e09de7b4",
@@ -228,8 +227,12 @@
   },
   "active": "f31491608c9abd94",
   "lastOpenFiles": [
-    "Projects/PI/agent/harness/agent-harness-study-cn.md",
+    "Projects/PI/agent/harness/diagram/agent-harness-architecture-diagrams_v3.md",
     "Projects/PI/agent/harness/agent-harness-学习笔记-glm-5.2.md",
+    "Projects/PI/agent/harness/diagram/agent-harness-architecture-diagrams_v2.md",
+    "Projects/PI/agent/harness/diagram/agent-harness-architecture-diagrams.md",
+    "Projects/PI/agent/harness/diagram",
+    "Projects/PI/agent/harness/agent-harness-study-cn.md",
     "Projects/PI/agent/harness/agent-harness.md",
     "Projects/PI/agent/harness/agent-harness-v2.md",
     "Projects/PI/agent/harness/AgentHarness-学习笔记.md",
@@ -253,9 +256,6 @@
     "Projects/PI/agent/README-CN.md",
     "Projects/PI/ai/07-file-map-and-relationships.md",
     "Projects/PI/ai/06-tests-notes-and-study-plan.md",
-    "Projects/PI/ai/05-images-oauth-and-runtime.md",
-    "Projects/PI/ai/04-provider-adapter-pattern.md",
-    "Projects/PI/ai/03-model-registry-and-generated-data.md",
     "Projects/pi/ai",
     "Projects/pi",
     "Projects/Harness Engineering/Phase2/week5",
@@ -263,7 +263,6 @@
     "Projects/Harness Engineering/Phase2",
     "Projects/Harness Engineering/Phase1/week3",
     "Projects/Harness Engineering/Phase1/week2",
-    "Projects/Harness Engineering/Phase1",
     "resource/Pasted image 20260319195808.png",
     "resource/Pasted image 20260319195727.png",
     "resource/Pasted image 20260319195125.png",
