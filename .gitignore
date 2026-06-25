@@ -1,1 +1,6 @@
 .temp/
+
+# Obsidian 布局/状态文件（每次操作都会自动变化，无需版本控制）
+.obsidian/workspace.json
+.obsidian/workspaces.json
+.obsidian/graph.json
