@@ -16,7 +16,7 @@ aliases:
 > [!info] 关联文件
 > - 源码：[`../src/harness/agent-harness.ts`](../src/harness/agent-harness.ts)
 > - 类型：[`../src/harness/types.ts`](../src/harness/types.ts)
-> - 生命周期文档：[[agent-harness]]
+> - 生命周期文档：[[Projects/pi/agent/harness/agent-harness]]
 > - 学习笔记：[[agent-harness-学习笔记]]
 
 ## 图 1：AgentHarness 整体架构

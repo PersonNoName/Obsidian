@@ -1175,7 +1175,7 @@ sequenceDiagram
 | [[agent-harness.ts]] | 主实现文件 |
 | [[types.ts]] | 所有类型定义 |
 | [[agent-loop.ts]] | 底层 Agent 循环 |
-| [[agent-harness.md]] | 官方设计文档 |
+| [[Projects/pi/agent/harness/agent-harness]] | 官方设计文档 |
 | [[hooks.md]] | Hook 系统设计 |
 | [[session.ts]] | Session 实现 |
 | [[compaction.ts]] | 上下文压缩 |
