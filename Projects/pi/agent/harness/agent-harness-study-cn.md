@@ -174,7 +174,7 @@ interface AgentHarnessTurnState<
 2. 当前 LLM 请求使用快照里的 model/system/tools/options。
 3. 每个 save point 后，通过 `prepareNextTurn` 重新创建快照，影响下一次 provider request。
 
-这个设计对应项目文档 [packages/agent/docs/agent-harness.md](Projects/pi/agent/harness/agent-harness.md#state-model) 里的“harness config vs turn snapshot”。
+这个设计对应项目文档 [packages/agent/docs/agent-harness.md](Projects/PI/agent/harness/agent-harness.md#state-model) 里的“harness config vs turn snapshot”。
 
 ---
 
@@ -1359,7 +1359,7 @@ listener/hook 抛错会被 `normalizeHookError()` 包成 harness error。某些�
 
 ## 18. 需要注意的坑
 
-1. **`waitForIdle()` 不要在当前 run 的同步 listener 里乱 await。** 文档 [agent-harness.md](Projects/pi/agent/harness/agent-harness.md#ultimate-lifecycle-goal) 提到：listener 如果 close over raw harness 并在 active run 中等待 settlement API，可能死锁。
+1. **`waitForIdle()` 不要在当前 run 的同步 listener 里乱 await。** 文档 [agent-harness.md](Projects/PI/agent/harness/agent-harness.md#ultimate-lifecycle-goal) 提到：listener 如果 close over raw harness 并在 active run 中等待 settlement API，可能死锁。
 
 2. **`setModel()` busy 时会立即更新内存 model，但 session 写入延后。** getter 返回最新 config，不代表当前 provider request 已使用该 model。
 

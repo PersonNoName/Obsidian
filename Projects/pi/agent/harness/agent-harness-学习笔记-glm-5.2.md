@@ -18,7 +18,7 @@ cssclasses:
 > [!info] 文件位置
 > 源码：[`packages/agent/src/harness/agent-harness.ts`](../src/harness/agent-harness.ts)
 > 类型：[`packages/agent/src/harness/types.ts`](../src/harness/types.ts)
-> 设计文档：[[Projects/pi/agent/harness/agent-harness]]
+> 设计文档：[[Projects/PI/agent/harness/agent-harness]]
 
 `AgentHarness` 是 pi-main 项目中位于 **底层 agent loop 之上** 的 *编排层（orchestration layer）*。它把"运行一次 LLM 对话"从"粗糙的循环驱动"升级为一个 **有状态、有阶段、可暂停、可介入、可持久化** 的对象。
 
@@ -612,7 +612,7 @@ sequenceDiagram
 
 ## 九、相关链接
 
-- [[Projects/pi/agent/harness/agent-harness|AgentHarness 设计文档（lifecycle）]]
+- [[Projects/PI/agent/harness/agent-harness|AgentHarness 设计文档（lifecycle）]]
 - [[hooks|Hooks 设计草案]]
 - [[durable-harness|可恢复 Harness 设计]]
 - [[observability|可观测性设计]]

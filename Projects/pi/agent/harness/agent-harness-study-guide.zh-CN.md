@@ -15,7 +15,7 @@
 - [../src/harness/session/session.ts](../src/harness/session/session.ts)
 - [../src/harness/env/nodejs.ts](../src/harness/env/nodejs.ts)
 - [../src/index.ts](../src/index.ts)
-- [agent-harness.md](Projects/pi/agent/harness/agent-harness.md)
+- [agent-harness.md](Projects/PI/agent/harness/agent-harness.md)
 - [durable-harness.md](durable-harness.md)
 
 ## 1. 先建立整体心智模型
@@ -897,7 +897,7 @@ sequenceDiagram
 
 这也是为什么你应该同时读：
 
-- [agent-harness.md](Projects/pi/agent/harness/agent-harness.md)
+- [agent-harness.md](Projects/PI/agent/harness/agent-harness.md)
 - [durable-harness.md](durable-harness.md)
 
 前者讲当前生命周期目标，后者讲未来恢复与耐久性方向。
