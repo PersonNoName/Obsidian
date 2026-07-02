@@ -312,4 +312,180 @@ flowchart TD
     hasSignal -->|否| signalError["抛错：Agent listener invoked outside active run"]
     hasSignal -->|是| notifyListeners["按订阅顺序 await listener(event, signal)"]
 ```
- 
+
+## AgentHarness 执行流程
+
+- 文件定位：`packages/agent/src/harness/agent-harness.ts`
+
+```mermaid
+flowchart TD
+    subgraph PublicAPI["AgentHarness public API"]
+        promptApi["prompt(text, images?)"]
+        skillApi["skill(name, ...)"]
+        templateApi["promptFromTemplate(name, args)"]
+        steerApi["steer(text)"]
+        followUpApi["followUp(text)"]
+        nextTurnApi["nextTurn(text)"]
+        compactApi["compact(...)"]
+        navigateApi["navigateTree(targetId, ...)"]
+        abortApi["abort()"]
+        subscribeApi["subscribe(listener)"]
+        onApi["on(type, handler)"]
+    end
+
+    subgraph PhaseGuard["phase 守卫"]
+        checkIdle["phase !== 'idle' 抛 busy"]
+        setTurn["phase = 'turn'"]
+        startRun["startRunPromise(): 创建 runPromise"]
+    end
+
+    subgraph TurnSetup["executeTurn 前置"]
+        createTurnState["createTurnState<br/>session.buildContext<br/>解析 systemPrompt / activeTools / resources"]
+        buildUserMsg["createUserMessage(text, images)"]
+        drainNextTurn["合并 nextTurnQueue"]
+        beforeHook["emitHook: before_agent_start<br/>可注入 messages / systemPrompt"]
+    end
+
+    subgraph LoopBridge["executeTurn -> runAgentLoop"]
+        createContext["createContext<br/>systemPrompt / messages / activeTools"]
+        createLoopConfig["createLoopConfig"]
+        createStreamFn["createStreamFn"]
+        handleEventCb["event => handleAgentEvent(event, signal)"]
+        callRunAgentLoop["runAgentLoop(...)"]
+        pickAssistant["从 newMessages 取最后一条 assistant"]
+        runFailure["emitRunFailure<br/>构造 error/aborted 消息"]
+    end
+
+    subgraph LoopConfig["createLoopConfig 注入的 hook"]
+        cfgConvert["convertToLlm"]
+        cfgContext["transformContext -> emitHook context"]
+        cfgBefore["beforeToolCall -> emitHook tool_call"]
+        cfgAfter["afterToolCall -> emitHook tool_result"]
+        cfgPrepare["prepareNextTurn<br/>flushPendingSessionWrites<br/>createTurnState + setTurnState"]
+        cfgSteer["getSteeringMessages -> drainQueuedMessages(steerQueue)"]
+        cfgFollowUp["getFollowUpMessages -> drainQueuedMessages(followUpQueue)"]
+    end
+
+    subgraph StreamFn["createStreamFn"]
+        getAuth["getApiKeyAndHeaders(model)"]
+        mergeHeaders["mergeHeaders(turnState + auth)"]
+        beforeReq["emitBeforeProviderRequest -> before_provider_request hook"]
+        callStreamSimple["streamSimple(model, context, options)"]
+        onPayload["onPayload -> emitBeforeProviderPayload"]
+        onResponse["onResponse -> emitOwn after_provider_response"]
+    end
+
+    subgraph EventHandling["handleAgentEvent(event)"]
+        evMessageEnd["message_end<br/>session.appendMessage + emitAny"]
+        evTurnEnd["turn_end<br/>emitAny + flushPendingSessionWrites + emitOwn save_point"]
+        evAgentEnd["agent_end<br/>flushPendingSessionWrites<br/>phase='idle' + emitAny + emitOwn settled"]
+        evOther["其他事件 -> emitAny"]
+    end
+
+    subgraph EventDispatch["事件分发"]
+        emitOwn["emitOwn / emitAny<br/>广播给 subscribe('*') 监听器"]
+        emitHook["emitHook<br/>调用 on(type) 注册的处理器<br/>返回值可修改流程"]
+    end
+
+    subgraph Queues["队列与状态"]
+        steerQueue["steerQueue"]
+        followUpQueue["followUpQueue"]
+        nextTurnQueue["nextTurnQueue"]
+        pendingWrites["pendingSessionWrites"]
+        emitQueueUpdate["emitQueueUpdate -> queue_update"]
+    end
+
+    promptApi --> checkIdle
+    skillApi --> checkIdle
+    templateApi --> checkIdle
+    checkIdle --> setTurn
+    setTurn --> startRun
+    startRun --> createTurnState
+
+    createTurnState --> buildUserMsg
+    buildUserMsg --> drainNextTurn
+    drainNextTurn --> beforeHook
+    beforeHook --> createContext
+
+    createContext --> callRunAgentLoop
+    createLoopConfig --> callRunAgentLoop
+    createStreamFn --> callRunAgentLoop
+    handleEventCb --> callRunAgentLoop
+
+    createLoopConfig --> cfgConvert
+    createLoopConfig --> cfgContext
+    createLoopConfig --> cfgBefore
+    createLoopConfig --> cfgAfter
+    createLoopConfig --> cfgPrepare
+    createLoopConfig --> cfgSteer
+    createLoopConfig --> cfgFollowUp
+
+    cfgContext --> emitHook
+    cfgBefore --> emitHook
+    cfgAfter --> emitHook
+    cfgPrepare --> pendingWrites
+    cfgSteer --> steerQueue
+    cfgFollowUp --> followUpQueue
+
+    createStreamFn --> getAuth
+    getAuth --> mergeHeaders
+    mergeHeaders --> beforeReq
+    beforeReq --> callStreamSimple
+    callStreamSimple --> onPayload
+    callStreamSimple --> onResponse
+    onPayload --> emitHook
+    onResponse --> emitOwn
+    beforeReq --> emitHook
+
+    callRunAgentLoop --> handleEventCb
+    handleEventCb --> evMessageEnd
+    handleEventCb --> evTurnEnd
+    handleEventCb --> evAgentEnd
+    handleEventCb --> evOther
+
+    evMessageEnd --> emitOwn
+    evTurnEnd --> emitOwn
+    evTurnEnd --> pendingWrites
+    evAgentEnd --> pendingWrites
+    evAgentEnd --> emitOwn
+    evOther --> emitOwn
+
+    callRunAgentLoop --> pickAssistant
+    callRunAgentLoop -->|throw| runFailure
+    runFailure --> handleEventCb
+
+    steerApi --> steerQueue
+    followUpApi --> followUpQueue
+    nextTurnApi --> nextTurnQueue
+    steerQueue --> emitQueueUpdate
+    followUpQueue --> emitQueueUpdate
+    nextTurnQueue --> emitQueueUpdate
+
+    compactApi --> emitHook
+    navigateApi --> emitHook
+    abortApi --> emitOwn
+    subscribeApi --> emitOwn
+    onApi --> emitHook
+```
+## handleAgentEvent 事件分流
+
+```mermaid
+flowchart TD
+    event["AgentEvent"] --> switchEvent{"event.type"}
+
+    switchEvent -->|message_end| msgEnd["session.appendMessage(message)"]
+    msgEnd --> msgEndEmit["emitAny(event)"]
+
+    switchEvent -->|turn_end| turnEmit["emitAny(event)<br/>捕获错误暂存 eventError"]
+    turnEmit --> turnFlush["flushPendingSessionWrites"]
+    turnFlush --> turnRethrow{"eventError 存在?"}
+    turnRethrow -->|是| turnThrow["抛出 eventError"]
+    turnRethrow -->|否| turnSave["emitOwn save_point<br/>带 hadPendingMutations"]
+
+    switchEvent -->|agent_end| agentFlush["flushPendingSessionWrites"]
+    agentFlush --> agentIdle["phase = 'idle'"]
+    agentIdle --> agentEmit["emitAny(event)"]
+    agentEmit --> agentSettled["emitOwn settled<br/>带 nextTurnCount"]
+
+    switchEvent -->|其他| otherEmit["emitAny(event)"]
+```
